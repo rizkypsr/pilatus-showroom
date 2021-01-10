@@ -23,7 +23,6 @@ class HomePresenter(private val view: HomeContract.View) : HomeContract.Presente
                 {
                     view.dismissLoading()
                     if (it.meta.status.equals("success", true)) {
-                        Log.d("JUNET", "getProduct: $it")
                         it.data?.let { it1 -> view.onProductSuccess(it1) }
                     } else {
                         it.meta?.message?.let { it1 -> view.onProductFailed(it1) }

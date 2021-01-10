@@ -1,7 +1,6 @@
 package com.showroom.pilatus.network
 
 import androidx.viewbinding.BuildConfig
-import com.readystatesoftware.chuck.ChuckInterceptor
 import com.showroom.pilatus.PilatusShowroom
 import com.showroom.pilatus.utils.Helpers
 import okhttp3.Interceptor
@@ -52,7 +51,6 @@ class HttpClient {
             var interceptor = HttpLoggingInterceptor()
             interceptor.level = HttpLoggingInterceptor.Level.BODY
             builder.addInterceptor(interceptor)
-            builder.addInterceptor(ChuckInterceptor(PilatusShowroom.getApp()))
         }
 
         if (token != null) {

@@ -103,17 +103,17 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/nunito"
-        android:text="Gender"
+        android:text="Address"
         app:layout_constraintStart_toStartOf="@+id/text_profile_phone"
         app:layout_constraintTop_toBottomOf="@+id/text_profile_phone" />
 
     <TextView
-        android:id="@+id/text_profile_gender"
+        android:id="@+id/text_profile_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/nunito"
-        android:text="Pria"
+        android:text="Jalan tabrnai"
         android:textColor="@android:color/black"
         app:layout_constraintStart_toStartOf="@+id/textView11"
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
@@ -124,19 +124,18 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/nunito"
-        android:text="Address"
-        app:layout_constraintStart_toStartOf="@+id/text_profile_gender"
-        app:layout_constraintTop_toBottomOf="@+id/text_profile_gender" />
+        android:text="House No."
+        app:layout_constraintStart_toStartOf="@+id/text_profile_address"
+        app:layout_constraintTop_toBottomOf="@+id/text_profile_city" />
 
     <TextView
-        android:id="@+id/text_profile_address"
+        android:id="@+id/text_profile_house_no"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/nunito"
-        android:text="Jalan Tabrani Ahmad Gang H.Samad No 11"
+        android:text="11"
         android:textColor="@android:color/black"
-        app:layout_constraintEnd_toStartOf="@+id/btn_add_product"
         app:layout_constraintStart_toStartOf="@+id/label_profile_address"
         app:layout_constraintTop_toBottomOf="@+id/label_profile_address" />
 
@@ -163,6 +162,28 @@
         app:layout_constraintTop_toTopOf="@+id/text_profile_email" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_edit_profile_address"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="@+id/text_profile_address"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_profile_address" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_edit_profile_city"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="@+id/text_profile_city"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_profile_city" />
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_edit_profile_phone"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
@@ -174,13 +195,32 @@
         app:layout_constraintTop_toTopOf="@+id/text_profile_phone" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_edit_profile_address"
+        android:id="@+id/btn_edit_profile_house"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Edit"
         android:textAllCaps="false"
-        app:layout_constraintBottom_toBottomOf="@+id/text_profile_address"
+        app:layout_constraintBottom_toBottomOf="@+id/text_profile_house_no"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/text_profile_address" />
+        app:layout_constraintTop_toTopOf="@+id/text_profile_house_no" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="City"
+        app:layout_constraintStart_toStartOf="@+id/text_profile_address"
+        app:layout_constraintTop_toBottomOf="@+id/text_profile_address" />
+
+    <TextView
+        android:id="@+id/text_profile_city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Pontianak"
+        android:textColor="@color/primaryTextColor"
+        app:layout_constraintStart_toStartOf="@+id/textView6"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
 </androidx.constraintlayout.widget.ConstraintLayout>

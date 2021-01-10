@@ -17,6 +17,12 @@ object Helpers {
         return "Rp " + format.format(price).replace(",".toRegex(), ".")
     }
 
+    fun Long.convertLongToTime(formatDate: String): String {
+        val date = Date(this)
+        val format = SimpleDateFormat(formatDate)
+        return format.format(date)
+    }
+
     fun getDefaultGson(): Gson {
         return GsonBuilder()
             .excludeFieldsWithoutExposeAnnotation()

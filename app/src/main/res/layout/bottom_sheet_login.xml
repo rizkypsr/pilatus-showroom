@@ -54,7 +54,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-        android:id="@+id/textView15"
+        android:id="@+id/tv_product_price_preview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -71,7 +71,7 @@
         android:fontFamily="@font/nunito_bold"
         android:text=" Sign up"
         android:textColor="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/textView15"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_product_price_preview"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView15" />
+        app:layout_constraintTop_toTopOf="@+id/tv_product_price_preview" />
 </androidx.constraintlayout.widget.ConstraintLayout>

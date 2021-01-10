@@ -17,7 +17,7 @@ import com.showroom.pilatus.adapter.NewProductsListAdapter
 import com.showroom.pilatus.databinding.FragmentHomeBinding
 import com.showroom.pilatus.model.response.home.CategoryResponse
 import com.showroom.pilatus.model.response.home.Data
-import com.showroom.pilatus.ui.category.CategoryResultActivity
+import com.showroom.pilatus.ui.search.ProductByCategoryActivity
 import com.showroom.pilatus.ui.detail.DetailActivity
 import com.showroom.pilatus.ui.search.SearchActivity
 
@@ -54,7 +54,6 @@ class HomeFragment : Fragment(), HomeContract.View {
             val moveIntent = Intent(activity, SearchActivity::class.java)
             startActivity(moveIntent)
         }
-
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.menu_cart -> {
@@ -97,9 +96,9 @@ class HomeFragment : Fragment(), HomeContract.View {
             NewProductsListAdapter.OnItemClickCallback {
             override fun onItemClicked(product: Data) {
                 val toDetail = Intent(activity, DetailActivity::class.java)
+                toDetail.putExtra("product", product)
                 startActivity(toDetail)
             }
-
         })
     }
 
@@ -116,7 +115,8 @@ class HomeFragment : Fragment(), HomeContract.View {
         categoryListAdapter.setOnItemClickCallback(object :
             CategoryListAdapter.OnItemClickCallback {
             override fun onItemClicked(category: CategoryResponse) {
-                val toCategoryResultActivity = Intent(activity, CategoryResultActivity::class.java)
+                val toCategoryResultActivity =
+                    Intent(activity, ProductByCategoryActivity::class.java)
                 toCategoryResultActivity.putExtra("category", category)
                 startActivity(toCategoryResultActivity)
             }

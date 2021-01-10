@@ -20,7 +20,7 @@
                 android:id="@+id/topAppBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/secondaryLightColor"
+                android:background="@android:color/white"
                 app:navigationIcon="?attr/homeAsUpIndicator">
 
                 <androidx.appcompat.widget.SearchView

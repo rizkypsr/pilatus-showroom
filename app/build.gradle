@@ -96,7 +96,4 @@ dependencies {
     implementation "androidx.preference:preference-ktx:1.1.1"
 
     implementation 'com.github.dhaval2404:imagepicker:1.5'
-
-    implementation 'com.readystatesoftware.chuck:library:1.1.0'
-
 }

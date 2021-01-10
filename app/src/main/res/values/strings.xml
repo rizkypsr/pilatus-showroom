@@ -68,9 +68,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="tab_text_1">All Orders</string>
-    <string name="tab_text_2">To Pay</string>
-    <string name="tab_text_3">To Ship</string>
-    <string name="tab_text_4">To Receive</string>
-    <string name="tab_text_5">Completed</string>
+    <string name="tab_text_1">Pending</string>
+    <string name="tab_text_2">Pass Orders</string>
 </resources>

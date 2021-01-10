@@ -6,7 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.google.gson.Gson
+import com.showroom.pilatus.PilatusShowroom
 import com.showroom.pilatus.databinding.FragmentChangeProfileBinding
+import com.showroom.pilatus.model.response.login.User
 
 class ChangeProfileFragment : Fragment() {
 
@@ -23,6 +28,20 @@ class ChangeProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val data = Gson().fromJson(PilatusShowroom.getApp().getUser(), User::class.java)
+
+        binding.textProfileName.text = data.name
+        binding.textProfileEmail.text = data.email
+        binding.textProfileAddress.text = data.address
+        binding.textProfileCity.text = data.city
+        binding.textProfileHouseNo.text = data.houseNumber
+        binding.textProfilePhone.text = data.phoneNumber
+
+        Glide.with(view)
+            .load(data.profilePhotoUrl)
+            .apply(RequestOptions.circleCropTransform())
+            .into(binding.circleImageView)
 
         binding.btnEditProfileName.setOnClickListener {
             val name = binding.textProfileName.text as String
@@ -48,7 +67,9 @@ class ChangeProfileFragment : Fragment() {
         binding.btnEditProfileAddress.setOnClickListener {
             val address = binding.textProfileAddress.text as String
             val toEditAddressFragment =
-                ChangeProfileFragmentDirections.actionChangeProfileFragmentToEditAddressFragment(address)
+                ChangeProfileFragmentDirections.actionChangeProfileFragmentToEditAddressFragment(
+                    address
+                )
             it.findNavController().navigate(toEditAddressFragment)
         }
 

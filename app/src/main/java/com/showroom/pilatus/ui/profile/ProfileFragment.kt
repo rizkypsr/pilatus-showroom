@@ -73,59 +73,6 @@ class ProfileFragment : Fragment() {
         }
     }
 
-//    private fun getUserProfile() {
-//
-//        val apiService =
-//            APIConfig.getRetrofitClient(requireActivity()).create(ApiService::class.java)
-//        val token: String? = sessionManager.fetchAuthToken()
-//
-//        if (token != null) {
-//            apiService.getUser(token).enqueue(object : Callback<UserResponse> {
-//                override fun onResponse(
-//                    call: Call<UserResponse>,
-//                    response: Response<UserResponse>
-//                ) {
-//                    val user = response.body()
-//
-//                    if (user != null) {
-//                        Log.d("JUNET", "onResponse: ${user!!.data.name}")
-//                    }
-//                }
-//
-//                override fun onFailure(call: Call<UserResponse>, t: Throwable) {
-//                    Log.d("JUNET", "onFailure: ${t.message}")
-//                }
-//            })
-//        }
-//    }
-
-//    private fun logout() {
-//
-//        val apiService =
-//            APIConfig.getRetrofitClient(requireActivity()).create(ApiService::class.java)
-//
-//        Log.d("JUNET", "onResponse: ${sessionManager.fetchAuthToken()}")
-//
-//        var token = sessionManager.fetchAuthToken()
-//
-//        apiService.logout("Bearer " + token)
-//            .enqueue(object : Callback<LogoutResponse> {
-//                override fun onResponse(
-//                    call: Call<LogoutResponse>,
-//                    response: Response<LogoutResponse>
-//                ) {
-//                    Log.d("JUNET", "onResponse: ${response.body()}")
-//                    sessionManager.removeToken()
-//                    activity!!.recreate()
-//                }
-//
-//                override fun onFailure(call: Call<LogoutResponse>, t: Throwable) {
-//                    Log.d("JUNET", "onFailure: ${t.message}")
-//                }
-//            })
-//
-//    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

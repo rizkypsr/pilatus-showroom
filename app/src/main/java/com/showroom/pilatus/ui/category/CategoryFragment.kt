@@ -12,9 +12,7 @@ import com.showroom.pilatus.R
 import com.showroom.pilatus.adapter.AllCategoryListAdapter
 import com.showroom.pilatus.databinding.FragmentCategoryBinding
 import com.showroom.pilatus.model.response.home.CategoryResponse
-import com.showroom.pilatus.network.APIConfig
-import com.showroom.pilatus.network.ApiService
-import com.showroom.pilatus.ui.home.HomePresenter
+import com.showroom.pilatus.ui.search.ProductByCategoryActivity
 
 class CategoryFragment : Fragment(), CategoryContract.View {
 
@@ -71,7 +69,7 @@ class CategoryFragment : Fragment(), CategoryContract.View {
                 categoryId: Int,
                 categoryName: String
             ) {
-                val toCategoryResultActivity = Intent(activity, CategoryResultActivity::class.java)
+                val toCategoryResultActivity = Intent(activity, ProductByCategoryActivity::class.java)
                 toCategoryResultActivity.putExtra("category", category)
                 startActivity(toCategoryResultActivity)
             }
