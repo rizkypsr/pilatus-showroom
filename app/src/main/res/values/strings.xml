@@ -6,6 +6,71 @@
     <string name="title_profile">Profile</string>
     <string name="title_cart">Cart</string>
     <string name="search">Search</string>
+    <string name="title_settings">Settings</string>
+    <string name="title_change_profile">Change Profile</string>
+    <string name="title_privacy"><![CDATA[Settings & Privacy]]></string>
+    <string name="title_logout">Logout</string>
+    <string name="title_name">Name</string>
+    <string name="title_save_btn">Save</string>
+    <string name="title_email">Email</string>
+    <string name="label_product">Product</string>
+    <string name="add_product">Add Product</string>
+
+    <string-array name="data_category_name">
+        <item>Computer &amp; Laptop</item>
+        <item>Man Fashion</item>
+        <item>Woman Fashion</item>
+        <item>Man Fashion</item>
+        <item>Man Fashion</item>
+        <item>Man Fashion</item>
+        <item>Man Fashion</item>
+        <item>Man Fashion</item>
+        <item>Man Fashion</item>
+        <item>Man Fashion</item>
+    </string-array>
+
+    <string-array name="data_category_icon">
+        <item>https://icon-library.com/images/sustainability-icon-png/sustainability-icon-png-29.jpg</item>
+        <item>https://icon-library.com/images/sustainability-icon-png/sustainability-icon-png-29.jpg</item>
+        <item>https://icon-library.com/images/sustainability-icon-png/sustainability-icon-png-29.jpg</item>
+        <item>https://icon-library.com/images/sustainability-icon-png/sustainability-icon-png-29.jpg</item>
+        <item>https://icon-library.com/images/sustainability-icon-png/sustainability-icon-png-29.jpg</item>
+        <item>https://icon-library.com/images/sustainability-icon-png/sustainability-icon-png-29.jpg</item>
+        <item>https://icon-library.com/images/sustainability-icon-png/sustainability-icon-png-29.jpg</item>
+        <item>https://icon-library.com/images/sustainability-icon-png/sustainability-icon-png-29.jpg</item>
+        <item>https://icon-library.com/images/sustainability-icon-png/sustainability-icon-png-29.jpg</item>
+        <item>https://icon-library.com/images/sustainability-icon-png/sustainability-icon-png-29.jpg</item>
+    </string-array>
+
+    <string-array name="data_new_product_name">
+        <item>Nike Shoe</item>
+        <item>Gremlins Flasher T-Shirt</item>
+        <item>Nike Shoe</item>
+        <item>Gremlins Flasher T-Shirt</item>
+        <item>Nike Shoe</item>
+    </string-array>
+
+    <string-array name="data_new_product_price">
+        <item>1.500.300</item>
+        <item>1.260.000</item>
+        <item>1.500.300</item>
+        <item>1.260.000</item>
+        <item>1.260.000</item>
+    </string-array>
+
+    <string-array name="data_new_product_photo">
+        <item>https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/2c3bc4de-07ed-4e27-ab1f-abb0cda2c0ff/air-zoom-pegasus-37-running-shoe-mwrTCc.jpg</item>
+        <item>https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/2c3bc4de-07ed-4e27-ab1f-abb0cda2c0ff/air-zoom-pegasus-37-running-shoe-mwrTCc.jpg</item>
+        <item>https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/2c3bc4de-07ed-4e27-ab1f-abb0cda2c0ff/air-zoom-pegasus-37-running-shoe-mwrTCc.jpg</item>
+        <item>https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/2c3bc4de-07ed-4e27-ab1f-abb0cda2c0ff/air-zoom-pegasus-37-running-shoe-mwrTCc.jpg</item>
+        <item>https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/2c3bc4de-07ed-4e27-ab1f-abb0cda2c0ff/air-zoom-pegasus-37-running-shoe-mwrTCc.jpg</item>
+    </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="tab_text_1">All Orders</string>
+    <string name="tab_text_2">To Pay</string>
+    <string name="tab_text_3">To Ship</string>
+    <string name="tab_text_4">To Receive</string>
+    <string name="tab_text_5">Completed</string>
 </resources>

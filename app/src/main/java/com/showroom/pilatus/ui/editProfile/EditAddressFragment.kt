@@ -1,0 +1,41 @@
+package com.showroom.pilatus.ui.editProfile
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.showroom.pilatus.databinding.FragmentEditAddressBinding
+
+class EditAddressFragment : Fragment() {
+
+
+    private var _binding: FragmentEditAddressBinding? = null
+    private val binding get() = _binding!!
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentEditAddressBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val dataAddress = EditAddressFragmentArgs.fromBundle(arguments as Bundle).address
+
+        binding.inputEditAddress.setText(dataAddress)
+
+        binding.topAppBar.setNavigationOnClickListener {
+            activity?.onBackPressed()
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        _binding = null
+    }
+}
