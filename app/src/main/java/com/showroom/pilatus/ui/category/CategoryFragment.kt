@@ -1,5 +1,6 @@
 package com.showroom.pilatus.ui.category
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,18 +8,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.showroom.pilatus.R
 import com.showroom.pilatus.adapter.AllCategoryListAdapter
 import com.showroom.pilatus.databinding.FragmentCategoryBinding
 import com.showroom.pilatus.model.response.home.CategoryResponse
 import com.showroom.pilatus.network.APIConfig
 import com.showroom.pilatus.network.ApiService
+import com.showroom.pilatus.ui.home.HomePresenter
 
-class CategoryFragment : Fragment() {
+class CategoryFragment : Fragment(), CategoryContract.View {
 
     private var _binding: FragmentCategoryBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var apiService: ApiService
+    private lateinit var presenter: CategoryPresenter
+    var progressDialog: Dialog? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,9 +36,21 @@ class CategoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        apiService = APIConfig.getRetrofitClient(requireActivity()).create(ApiService::class.java)
+        initView()
 
-        //getListCategory()
+        presenter = CategoryPresenter(this)
+        presenter.getCategory()
+    }
+
+    private fun initView() {
+        progressDialog = Dialog(requireContext())
+        val dialogLayout = layoutInflater.inflate(R.layout.dialog_loader, null)
+
+        progressDialog?.let {
+            it.setContentView(dialogLayout)
+            it.setCancelable(false)
+            it.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        }
     }
 
     override fun onDestroyView() {
@@ -41,36 +58,10 @@ class CategoryFragment : Fragment() {
         _binding = null
     }
 
-//    private fun getListCategory() {
-//        var listCategory = ArrayList<DataCategory>()
-//
-//        apiService.getCategories().enqueue(object : Callback<CategoryResponse> {
-//            override fun onResponse(
-//                call: Call<CategoryResponse>,
-//                response: Response<CategoryResponse>
-//            ) {
-//                val category = response.body()
-//
-//                if (category != null) {
-//                    listCategory = category.data as ArrayList<DataCategory>
-//                }
-//
-//                showListCategory(listCategory)
-//
-//                binding.progressBar.visibility = View.INVISIBLE
-//            }
-//
-//            override fun onFailure(call: Call<CategoryResponse>, t: Throwable) {
-//                binding.progressBar.visibility = View.INVISIBLE
-//            }
-//
-//        })
-//    }
-
-    private fun showListCategory(listCategory: ArrayList<CategoryResponse>) {
+    override fun onCategorySuccess(categoryResponse: List<CategoryResponse>) {
         binding.recyclerViewCategory.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-        val categoryListAdapter = AllCategoryListAdapter(listCategory)
+        val categoryListAdapter = AllCategoryListAdapter(categoryResponse)
         binding.recyclerViewCategory.adapter = categoryListAdapter
 
         categoryListAdapter.setOnItemClickCallback(object :
@@ -86,6 +77,17 @@ class CategoryFragment : Fragment() {
             }
 
         })
+    }
+
+    override fun onCategoryFailed(message: String) {
+    }
+
+    override fun showLoading() {
+        progressDialog?.show()
+    }
+
+    override fun dismissLoading() {
+        progressDialog?.dismiss()
     }
 
 }

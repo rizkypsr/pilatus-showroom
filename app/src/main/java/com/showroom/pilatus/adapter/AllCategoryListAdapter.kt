@@ -7,7 +7,7 @@ import com.showroom.pilatus.databinding.ItemListAllCategoryBinding
 import com.showroom.pilatus.model.response.home.CategoryResponse
 
 class AllCategoryListAdapter(
-    private val listAllCategory: ArrayList<CategoryResponse>
+    private val listAllCategory: List<CategoryResponse>
 ) : RecyclerView.Adapter<AllCategoryListAdapter.AllCategoryListViewHolder>() {
 
     private var onItemClickCallback: AllCategoryListAdapter.OnItemClickCallback? = null
