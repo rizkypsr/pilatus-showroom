@@ -42,8 +42,6 @@ class PendingOrdersFragment : Fragment(), PendingOrdersListAdapter.OnItemClickCa
             val layoutManager = LinearLayoutManager(activity)
             binding.recyclerViewPendingOrders.layoutManager = layoutManager
             binding.recyclerViewPendingOrders.adapter = adapter
-        } else {
-
         }
     }
 

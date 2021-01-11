@@ -13,7 +13,7 @@
         android:layout_height="96dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:src="@drawable/dummy_profile" />
 
     <TextView
         android:id="@+id/text_product_title_cart"
@@ -27,26 +27,17 @@
         app:layout_constraintTop_toTopOf="@+id/imageView3" />
 
     <TextView
-        android:id="@+id/textView22"
+        android:id="@+id/text_product_cart_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/nunito"
-        android:text="Some Description"
+        android:fontFamily="@font/poppins"
+        android:text="Rp 219.000"
+        android:textColor="@android:color/black"
         app:layout_constraintStart_toStartOf="@+id/text_product_title_cart"
         app:layout_constraintTop_toBottomOf="@+id/text_product_title_cart" />
 
-    <TextView
-        android:id="@+id/textView23"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/nunito_bold"
-        android:text="Rp 219.000"
-        android:textColor="@android:color/black"
-        app:layout_constraintStart_toStartOf="@+id/textView22"
-        app:layout_constraintTop_toBottomOf="@+id/textView22" />
-
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/iv_product_cart_photo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,9 +45,10 @@
         app:srcCompat="@drawable/ic_trash" />
 
     <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+        android:id="@+id/btn_quantity"
         android:layout_width="120dp"
         android:layout_height="40dp"
-        app:backGroundColor="@color/secondaryColor"
+        app:backGroundColor="@color/primaryColor"
         app:initialNumber="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
