@@ -1,5 +1,6 @@
 package com.showroom.pilatus.ui.detail
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -10,6 +11,7 @@ import com.showroom.pilatus.databinding.ActivityDetailBinding
 import com.showroom.pilatus.model.response.cart.CartItem
 import com.showroom.pilatus.model.response.cart.ShoppingCart
 import com.showroom.pilatus.model.response.home.Data
+import com.showroom.pilatus.ui.ongkir.OngkirActivity
 import com.showroom.pilatus.ui.payment.PaymentActivity
 import com.showroom.pilatus.utils.Helpers
 
@@ -21,6 +23,7 @@ class DetailActivity : AppCompatActivity() {
 
     var bundle: Bundle? = null
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
@@ -37,6 +40,11 @@ class DetailActivity : AppCompatActivity() {
             tvProductDesc.text = data.description
             tvProductStock.text = data.stock.toString() + " left"
             tvProductPrice.text = Helpers.getCurrencyIDR(data.price.toDouble())
+
+            if (data.stock == 0) {
+                btnOrderNow.text = "Sold Out"
+                btnOrderNow.isEnabled = false
+            }
         }
 
         binding.btnOrderNow.setOnClickListener {

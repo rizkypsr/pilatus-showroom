@@ -1,6 +1,5 @@
 package com.showroom.pilatus.ui.home
 
-import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.facebook.shimmer.ShimmerFrameLayout
 import com.showroom.pilatus.R
 import com.showroom.pilatus.adapter.ProductListAdapter
 import com.showroom.pilatus.databinding.FragmentHomeBinding
@@ -39,8 +37,6 @@ class HomeFragment : Fragment(), HomeContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initView()
-
         presenter = HomePresenter(this)
         presenter.getProduct()
 
@@ -57,17 +53,6 @@ class HomeFragment : Fragment(), HomeContract.View {
                 else -> false
             }
         }
-    }
-
-    private fun initView() {
-        //progressDialog = Dialog(requireContext())
-        val dialogLayout = layoutInflater.inflate(R.layout.dialog_loader, null)
-
-//        progressDialog?.let {
-//            it.setContentView(dialogLayout)
-//            it.setCancelable(false)
-//            it.window?.setBackgroundDrawableResource(android.R.color.transparent)
-//        }
     }
 
     override fun onDestroyView() {

@@ -31,14 +31,16 @@
 
         <TextView
             android:id="@+id/tv_product_title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="26dp"
+            android:layout_marginEnd="16dp"
             android:fontFamily="@font/poppins"
             android:text="Title Product"
             android:textColor="@color/primaryTextColor"
-            android:textSize="26dp"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/tv_product_price"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

@@ -2,7 +2,6 @@ package com.showroom.pilatus.ui.home
 
 import com.showroom.pilatus.base.BasePresenter
 import com.showroom.pilatus.base.BaseView
-import com.showroom.pilatus.model.response.home.CategoryResponse
 import com.showroom.pilatus.model.response.home.Data
 
 interface HomeContract {
