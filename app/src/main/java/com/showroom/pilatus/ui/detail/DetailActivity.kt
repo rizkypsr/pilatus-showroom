@@ -28,15 +28,14 @@ class DetailActivity : AppCompatActivity() {
 
         data = intent.getParcelableExtra("product")!!
 
-
-//            Glide.with(this)
-//                .load(data.picturePath)
-//                .into(binding.ivProductPhoto)
+        Glide.with(this)
+            .load(data.picturePath)
+            .into(binding.ivProductPhoto)
 
         binding.apply {
             tvProductTitle.text = data.name
             tvProductDesc.text = data.description
-            tvProductStock.text = data.stock.toString()
+            tvProductStock.text = data.stock.toString() + " left"
             tvProductPrice.text = Helpers.getCurrencyIDR(data.price.toDouble())
         }
 

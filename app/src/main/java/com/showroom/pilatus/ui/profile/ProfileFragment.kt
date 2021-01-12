@@ -2,7 +2,6 @@ package com.showroom.pilatus.ui.profile
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,16 +13,9 @@ import com.google.gson.Gson
 import com.showroom.pilatus.PilatusShowroom
 import com.showroom.pilatus.R
 import com.showroom.pilatus.databinding.FragmentProfileBinding
-import com.showroom.pilatus.model.auth.logout.LogoutResponse
-import com.showroom.pilatus.model.profile.UserResponse
 import com.showroom.pilatus.model.response.login.User
-import com.showroom.pilatus.network.APIConfig
-import com.showroom.pilatus.network.ApiService
 import com.showroom.pilatus.ui.login.LoginActivity
 import com.showroom.pilatus.utils.SessionManager
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class ProfileFragment : Fragment() {
 

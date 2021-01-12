@@ -33,7 +33,7 @@
                 android:id="@+id/text_product_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/nunito"
+                android:fontFamily="@font/poppins"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 tools:text="Nike Shoe" />
@@ -42,7 +42,7 @@
                 android:id="@+id/text_product_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/nunito_bold"
+                android:fontFamily="@font/poppins"
                 android:textColor="#E91E63"
                 android:textSize="12sp"
                 tools:text="1.500.300" />

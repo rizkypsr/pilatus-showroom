@@ -10,14 +10,10 @@ interface HomeContract {
     interface View : BaseView {
         fun onProductSuccess(it1: List<Data>)
         fun onProductFailed(message: String)
-
-        fun onCategorySuccess(categoryResponse: List<CategoryResponse>)
-        fun onCategoryFailed(message: String)
     }
 
     interface Presenter : HomeContract, BasePresenter {
         fun getProduct()
-        fun getCategory()
     }
 
 }

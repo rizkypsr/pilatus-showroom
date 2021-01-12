@@ -59,7 +59,7 @@ class HttpClient {
 
         val okHttpClient = builder.build()
         client = Retrofit.Builder()
-            .baseUrl("http://10.20.35.244:8888/pilatus-server/public/api/")
+            .baseUrl("http://192.168.1.73:8888/pilatus-server/public/api/")
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create(Helpers.getDefaultGson()))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

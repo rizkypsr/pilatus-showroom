@@ -7,13 +7,12 @@
     android:padding="16dp"
     tools:context=".ui.login.LoginActivity">
 
-
     <TextView
         android:id="@+id/label_welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:fontFamily="@font/nunito_bold"
+        android:fontFamily="@font/poppins"
         android:text="Welcome,"
         android:textColor="@android:color/black"
         android:textSize="36sp"
@@ -24,7 +23,7 @@
         android:id="@+id/label_welcome2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/nunito"
+        android:fontFamily="@font/poppins"
         android:text=" Sign in to continue!"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -90,7 +89,7 @@
             android:id="@+id/label_new_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/nunito"
+            android:fontFamily="@font/poppins"
             android:text=" I'm new user, "
             android:textColor="@android:color/black" />
 
@@ -98,9 +97,10 @@
             android:id="@+id/btn_text_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/nunito_bold"
+            android:fontFamily="@font/poppins"
             android:text="Sign up"
-            android:textColor="@color/primaryColor" />
+            android:textColor="@color/primaryTextColor"
+            android:textStyle="bold" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

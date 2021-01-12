@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.showroom.pilatus.PilatusShowroom
 import com.showroom.pilatus.R
@@ -41,6 +42,10 @@ class PaymentActivity : AppCompatActivity(), PaymentContract.View {
 
             binding.apply {
                 val totalPrice = quantity * data.price
+
+                Glide.with(this@PaymentActivity)
+                    .load(data.picturePath)
+                    .into(ivProductPhoto)
 
                 tvProductTitle.text = data.name
                 tvProductPrice.text = Helpers.getCurrencyIDR(data.price.toDouble())

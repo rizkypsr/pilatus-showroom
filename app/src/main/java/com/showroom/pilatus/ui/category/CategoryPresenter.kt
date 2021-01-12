@@ -1,6 +1,5 @@
 package com.showroom.pilatus.ui.category
 
-import android.util.Log
 import com.showroom.pilatus.network.HttpClient
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -22,10 +21,10 @@ class CategoryPresenter(private val view: CategoryContract.View) : CategoryContr
             .subscribe(
                 {
                     view.dismissLoading()
-                    if (it.meta?.status.equals("success", true)) {
+                    if (it.meta.status.equals("success", true)) {
                         it.data?.let { it1 -> view.onCategorySuccess(it1) }
                     } else {
-                        it.meta?.message?.let { it1 -> view.onCategoryFailed(it1) }
+                        it.meta.message.let { it1 -> view.onCategoryFailed(it1) }
                     }
                 },
                 {

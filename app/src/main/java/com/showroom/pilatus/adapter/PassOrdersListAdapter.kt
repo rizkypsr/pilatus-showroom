@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.showroom.pilatus.databinding.ItemListPassOrdersBinding
 import com.showroom.pilatus.databinding.ItemListPendingOrdersBinding
 import com.showroom.pilatus.model.response.transaction.TransactionResponseItem
@@ -38,9 +39,9 @@ class PassOrdersListAdapter(
 
         fun bind(transactionResponseItem: TransactionResponseItem) {
             with(binding) {
-//                Glide.with(itemView.context)
-//                    .load(product.)
-//                    .into(ivProductPhoto)
+                Glide.with(itemView.context)
+                    .load(transactionResponseItem.product.picturePath)
+                    .into(ivProduct)
 
                 tvProduct.text = transactionResponseItem.product.name
                 tvOrderDate.text =

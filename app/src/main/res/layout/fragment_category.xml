@@ -23,16 +23,29 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:paddingTop="24dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_category"
+        <RelativeLayout
             android:layout_width="match_parent"
-            tools:listitem="@layout/item_list_all_category"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+
+            <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+                android:id="@+id/shimmer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:shimmer_demo_child_count="12"
+                app:shimmer_demo_grid_child_count="4"
+                app:shimmer_demo_layout="@layout/shimmer_placeholder_category"
+                app:shimmer_demo_layout_manager_type="grid" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_category"
+                android:layout_width="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/item_list_all_category" />
+        </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

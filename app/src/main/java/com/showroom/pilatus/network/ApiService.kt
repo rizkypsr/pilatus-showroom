@@ -64,6 +64,11 @@ interface ApiService {
         @Query("category_id") categoryId: Int
     ): Observable<Wrapper<List<Data>>>
 
+    @GET("product")
+    fun getProductsByName(
+        @Query("name") name: String
+    ): Observable<Wrapper<List<Data>>>
+
     @GET("transaction")
     fun getTransaction(): Observable<Wrapper<List<TransactionResponseItem>>>
 

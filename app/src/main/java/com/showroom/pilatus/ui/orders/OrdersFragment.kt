@@ -25,9 +25,9 @@ class OrdersFragment : Fragment(), OrderContract.View {
 
     private lateinit var presenter: OrderPresenter
 
-    var progressDialog: Dialog? = null
-    var pendingOrders: ArrayList<TransactionResponseItem>? = ArrayList()
-    var passOrders: ArrayList<TransactionResponseItem>? = ArrayList()
+    private var progressDialog: Dialog? = null
+    private var pendingOrders: ArrayList<TransactionResponseItem>? = ArrayList()
+    private var passOrders: ArrayList<TransactionResponseItem>? = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -80,8 +80,6 @@ class OrdersFragment : Fragment(), OrderContract.View {
 
         val ordersPagerAdapter =
             OrdersPagerAdapter(requireActivity(), requireActivity().supportFragmentManager)
-
-        Log.d("JUNET", "onOrderFragment: $pendingOrders")
 
         ordersPagerAdapter.setData(pendingOrders, passOrders)
 

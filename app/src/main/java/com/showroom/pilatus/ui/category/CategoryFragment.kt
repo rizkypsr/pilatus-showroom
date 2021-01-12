@@ -7,12 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.showroom.pilatus.R
-import com.showroom.pilatus.adapter.AllCategoryListAdapter
+import com.showroom.pilatus.adapter.CategoryListAdapter
 import com.showroom.pilatus.databinding.FragmentCategoryBinding
 import com.showroom.pilatus.model.response.home.CategoryResponse
-import com.showroom.pilatus.ui.search.ProductByCategoryActivity
+import com.showroom.pilatus.ui.product.ProductByCategoryActivity
 
 class CategoryFragment : Fragment(), CategoryContract.View {
 
@@ -20,7 +20,7 @@ class CategoryFragment : Fragment(), CategoryContract.View {
     private val binding get() = _binding!!
 
     private lateinit var presenter: CategoryPresenter
-    var progressDialog: Dialog? = null
+    private var progressDialog: Dialog? = null
 
 
     override fun onCreateView(
@@ -58,18 +58,19 @@ class CategoryFragment : Fragment(), CategoryContract.View {
 
     override fun onCategorySuccess(categoryResponse: List<CategoryResponse>) {
         binding.recyclerViewCategory.layoutManager =
-            LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-        val categoryListAdapter = AllCategoryListAdapter(categoryResponse)
+            GridLayoutManager(activity, 4)
+        val categoryListAdapter = CategoryListAdapter(categoryResponse)
         binding.recyclerViewCategory.adapter = categoryListAdapter
 
         categoryListAdapter.setOnItemClickCallback(object :
-            AllCategoryListAdapter.OnItemClickCallback {
+            CategoryListAdapter.OnItemClickCallback {
             override fun onItemClicked(
                 category: CategoryResponse,
                 categoryId: Int,
                 categoryName: String
             ) {
-                val toCategoryResultActivity = Intent(activity, ProductByCategoryActivity::class.java)
+                val toCategoryResultActivity =
+                    Intent(activity, ProductByCategoryActivity::class.java)
                 toCategoryResultActivity.putExtra("category", category)
                 startActivity(toCategoryResultActivity)
             }
@@ -81,11 +82,11 @@ class CategoryFragment : Fragment(), CategoryContract.View {
     }
 
     override fun showLoading() {
-        progressDialog?.show()
+        binding.shimmer.showShimmerAdapter()
     }
 
     override fun dismissLoading() {
-        progressDialog?.dismiss()
+        binding.shimmer.hideShimmerAdapter()
     }
 
 }

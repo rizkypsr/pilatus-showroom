@@ -32,7 +32,7 @@
                 android:id="@+id/text_category"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/nunito"
+                android:fontFamily="@font/poppins"
                 android:text="Computer &amp; laptop"
                 android:textAlignment="center"
                 android:textColor="@android:color/black" />

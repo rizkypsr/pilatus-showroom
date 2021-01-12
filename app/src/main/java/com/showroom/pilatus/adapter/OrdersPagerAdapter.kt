@@ -2,7 +2,6 @@ package com.showroom.pilatus.adapter
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -34,7 +33,6 @@ class OrdersPagerAdapter(
                 val bundle = Bundle()
                 bundle.putParcelableArrayList("data", inProgressList)
                 fragment.arguments = bundle
-                Log.d("JUNET", "onAdapter: $inProgressList")
             }
             1 -> {
                 fragment = PassOrdersFragment()

@@ -3,44 +3,43 @@ package com.showroom.pilatus.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.showroom.pilatus.databinding.ItemListCategoryBinding
+import com.showroom.pilatus.databinding.ItemListAllCategoryBinding
 import com.showroom.pilatus.model.response.home.CategoryResponse
 
 class CategoryListAdapter(
-    private val listCategory: List<CategoryResponse>
-) : RecyclerView.Adapter<CategoryListAdapter.CategoryListViewHolder>() {
+    private val listAllCategory: List<CategoryResponse>
+) : RecyclerView.Adapter<CategoryListAdapter.AllCategoryListViewHolder>() {
 
-    private var onItemClickCallback: OnItemClickCallback? = null
+    private var onItemClickCallback: CategoryListAdapter.OnItemClickCallback? = null
 
-    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
+    fun setOnItemClickCallback(onItemClickCallback: CategoryListAdapter.OnItemClickCallback) {
         this.onItemClickCallback = onItemClickCallback
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryListViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AllCategoryListViewHolder {
         val binding =
-            ItemListCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return CategoryListViewHolder(binding)
+            ItemListAllCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return AllCategoryListViewHolder(binding)
     }
 
-    override fun getItemCount(): Int = listCategory.size
+    override fun getItemCount(): Int = listAllCategory.size
 
-    override fun onBindViewHolder(holder: CategoryListViewHolder, position: Int) {
-        holder.bind(listCategory[position])
+    override fun onBindViewHolder(holder: AllCategoryListViewHolder, position: Int) {
+        holder.bind(listAllCategory[position])
     }
 
-    inner class CategoryListViewHolder(private val binding: ItemListCategoryBinding) :
+    inner class AllCategoryListViewHolder(private val binding: ItemListAllCategoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(category: CategoryResponse) {
             with(binding) {
 //                Glide.with(itemView.context)
 //                    .load(category.icon)
-//                    .apply(RequestOptions().override(96, 96))
-//                    .into(ivComputer)
+//                    .into(ivCategoryPhoto)
 
-                textCategory.text = category.name
+                textCategoryTitle.text = category.name
 
                 itemView.setOnClickListener {
-                    onItemClickCallback?.onItemClicked(category)
+                    onItemClickCallback?.onItemClicked(category, category.id, category.name)
                 }
             }
         }
@@ -48,6 +47,6 @@ class CategoryListAdapter(
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(category: CategoryResponse)
+        fun onItemClicked(category: CategoryResponse, categoryId: Int, categoryName: String)
     }
 }

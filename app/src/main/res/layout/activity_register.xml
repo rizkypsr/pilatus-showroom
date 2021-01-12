@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:fontFamily="@font/nunito_bold"
+            android:fontFamily="@font/poppins"
             android:text="Create Account,"
             android:textColor="@android:color/black"
             android:textSize="36sp" />
@@ -26,7 +26,6 @@
             android:id="@+id/label_create_acc2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/nunito"
             android:text="Sign up to get started!"
             android:textSize="18sp" />
 
@@ -41,7 +40,8 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -56,7 +56,8 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -72,6 +73,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
                 android:inputType="textPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -86,7 +88,8 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -101,6 +104,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
                 android:inputType="number" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -116,6 +120,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
                 android:inputType="number" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -130,7 +135,8 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -139,6 +145,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
+            android:fontFamily="@font/poppins"
             android:text="Sign up" />
     </LinearLayout>
 </ScrollView>

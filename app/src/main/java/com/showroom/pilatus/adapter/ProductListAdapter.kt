@@ -3,13 +3,14 @@ package com.showroom.pilatus.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.showroom.pilatus.databinding.ItemListNewProductsBinding
+import com.bumptech.glide.Glide
+import com.showroom.pilatus.databinding.ItemListProductBinding
 import com.showroom.pilatus.model.response.home.Data
 import com.showroom.pilatus.utils.Helpers
 
-class NewProductsListAdapter(
+class ProductListAdapter(
     private val listNewProducts: List<Data>
-) : RecyclerView.Adapter<NewProductsListAdapter.NewProductsViewHolder>() {
+) : RecyclerView.Adapter<ProductListAdapter.NewProductsViewHolder>() {
 
     private var onItemClickCallback: OnItemClickCallback? = null
 
@@ -19,7 +20,7 @@ class NewProductsListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewProductsViewHolder {
         val binding =
-            ItemListNewProductsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemListProductBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return NewProductsViewHolder(binding)
     }
 
@@ -30,14 +31,14 @@ class NewProductsListAdapter(
     override fun getItemCount(): Int = listNewProducts.size
 
 
-    inner class NewProductsViewHolder(private val binding: ItemListNewProductsBinding) :
+    inner class NewProductsViewHolder(private val binding: ItemListProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(product: Data) {
             with(binding) {
-//                Glide.with(itemView.context)
-//                    .load(product.)
-//                    .into(ivProductPhoto)
+                Glide.with(itemView.context)
+                    .load(product.picturePath)
+                    .into(ivProductPhoto)
 
                 textProductName.text = product.name
                 textProductPrice.text = Helpers.getCurrencyIDR(product.price.toDouble())

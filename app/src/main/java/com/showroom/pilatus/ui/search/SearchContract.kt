@@ -8,12 +8,12 @@ import com.showroom.pilatus.model.response.home.Data
 interface SearchContract {
 
     interface View : BaseView {
-        fun onProductByCategorySuccess(it1: List<Data>)
-        fun onProductByCategoryFailed(message: String)
+        fun onSearchByNameSuccess(product: List<Data>)
+        fun onSearchByNameFailed(message: String)
     }
 
     interface Presenter : SearchContract, BasePresenter {
-        fun getProductByCategory(categoryId: Int)
+        fun getSearchByName(name: String)
     }
 
 }

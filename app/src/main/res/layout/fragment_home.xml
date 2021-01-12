@@ -58,6 +58,18 @@
             android:layout_height="wrap_content"
             android:padding="16dp">
 
+            <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+                android:id="@+id/shimmer"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/label_new_products"
+                app:shimmer_demo_child_count="10"
+                app:shimmer_demo_grid_child_count="2"
+                app:shimmer_demo_layout="@layout/shimmer_placeholder_product"
+                app:shimmer_demo_layout_manager_type="grid" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_new_products"
                 android:layout_width="0dp"
@@ -72,43 +84,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:fontFamily="@font/nunito_bold"
+                android:fontFamily="@font/poppins"
                 android:text="New Products"
-                android:textColor="@android:color/black"
+                android:textColor="@color/primaryTextColor"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/recycler_view_category" />
-
-            <TextView
-                android:id="@+id/label_view_all_category"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/nunito"
-                android:text="View all"
-                app:layout_constraintBottom_toBottomOf="@+id/label_category"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/label_category" />
-
-            <TextView
-                android:id="@+id/label_category"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/nunito_bold"
-                android:text="@string/title_category"
-                android:textColor="@android:color/black"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view_category"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/label_category">
-
-            </androidx.recyclerview.widget.RecyclerView>
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
