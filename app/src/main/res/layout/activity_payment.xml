@@ -50,48 +50,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/iv_product_photo"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="8dp"
-                android:scaleType="centerCrop"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView5"
-                tools:src="@tools:sample/backgrounds/scenic" />
-
-            <TextView
-                android:id="@+id/tv_product_title"
-                android:layout_width="0dp"
+            <RelativeLayout
+                android:id="@+id/rc_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="16dp"
-                android:fontFamily="@font/poppins"
-                android:text="Title product"
-                android:textColor="@color/primaryTextColor"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toStartOf="@+id/tv_product_quantity"
-                app:layout_constraintStart_toEndOf="@+id/iv_product_photo"
-                app:layout_constraintTop_toTopOf="@+id/iv_product_photo" />
-
-            <TextView
-                android:id="@+id/tv_product_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins"
-                android:text="Rp. 289.000"
-                app:layout_constraintStart_toStartOf="@+id/tv_product_title"
-                app:layout_constraintTop_toBottomOf="@+id/tv_product_title" />
-
-            <TextView
-                android:id="@+id/tv_product_quantity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins"
-                android:text="1 Items"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_product_title"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tv_product_title" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textView5">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_product"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    tools:listitem="@layout/item_list_payment" />
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/textView10"
@@ -102,17 +75,7 @@
                 android:text="Details Transaction"
                 android:textColor="@color/primaryTextColor"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_product_price" />
-
-            <TextView
-                android:id="@+id/textView12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/poppins"
-                android:text="Unit Price"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView10" />
+                app:layout_constraintTop_toBottomOf="@+id/rc_layout" />
 
             <TextView
                 android:id="@+id/textView14"
@@ -124,16 +87,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_courier_type" />
 
-            <TextView
-                android:id="@+id/tv_product_price_preview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins"
-                android:text="Rp. 18.399.000"
-                android:textColor="@color/primaryTextColor"
-                app:layout_constraintBottom_toBottomOf="@+id/textView12"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView12" />
 
             <TextView
                 android:id="@+id/tv_total_price"
@@ -154,7 +107,7 @@
                 android:fontFamily="@font/poppins"
                 android:text="Reguler (2-4 hari)"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView12" />
+                app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
             <TextView
                 android:id="@+id/tv_courier_price"

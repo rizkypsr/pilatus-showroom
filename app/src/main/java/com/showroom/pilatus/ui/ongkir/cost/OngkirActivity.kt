@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.showroom.pilatus.databinding.ActivityOngkirBinding
+import com.showroom.pilatus.model.response.cart.CartItem
+import com.showroom.pilatus.model.response.cart.ShoppingCart
 import com.showroom.pilatus.model.response.home.Data
 import com.showroom.pilatus.model.response.ongkir.city.Result
 import com.showroom.pilatus.model.response.ongkir.cost.Cost
@@ -22,7 +24,7 @@ class OngkirActivity : AppCompatActivity(), OngkirContract.View {
     private lateinit var presenter: OngkirPresenter
     private lateinit var adapter: OngkirListAdapter
 
-    private lateinit var dataProduct: Data
+    private lateinit var dataProduct: List<CartItem>
     private lateinit var dataCity: Result
 
     companion object {
@@ -35,8 +37,6 @@ class OngkirActivity : AppCompatActivity(), OngkirContract.View {
         setContentView(binding.root)
 
         presenter = OngkirPresenter(this)
-
-        dataProduct = intent.getParcelableExtra("product")!!
 
         binding.inputCity.setOnClickListener {
             val intent = Intent(this@OngkirActivity, SearchCityActivity::class.java)
@@ -73,7 +73,6 @@ class OngkirActivity : AppCompatActivity(), OngkirContract.View {
         adapter.setOnItemClickCallback(object : OngkirListAdapter.OnItemClickCallback {
             override fun onItemClicked(courier: Cost) {
                 val toPaymentActivity = Intent(this@OngkirActivity, PaymentActivity::class.java)
-                toPaymentActivity.putExtra("productDetail", dataProduct)
                 toPaymentActivity.putExtra("courierDetail", courier)
                 toPaymentActivity.putExtra("cityDetail", dataCity)
                 startActivity(toPaymentActivity)

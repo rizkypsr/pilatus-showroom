@@ -41,4 +41,8 @@ class PilatusShowroom : MultiDexApplication() {
     fun getUser(): String? {
         return getPreferences().getString("PREFERENCES_USER", null)
     }
+
+    fun removeToken() {
+        getPreferences().edit().clear().apply()
+    }
 }

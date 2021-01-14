@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.gson.Gson
@@ -14,15 +16,16 @@ import com.showroom.pilatus.PilatusShowroom
 import com.showroom.pilatus.R
 import com.showroom.pilatus.databinding.FragmentProfileBinding
 import com.showroom.pilatus.model.response.login.User
+import com.showroom.pilatus.ui.changeProfile.ProfilePresenter
 import com.showroom.pilatus.ui.login.LoginActivity
 import com.showroom.pilatus.utils.SessionManager
 
-class ProfileFragment : Fragment() {
+class ProfileFragment : Fragment(), LogoutContract.View {
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var sessionManager: SessionManager
+    private lateinit var presenter: LogoutPresenter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,6 +37,8 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        presenter = LogoutPresenter(this)
 
         // Check if user already logged in
         if (!PilatusShowroom.getApp().getToken().isNullOrEmpty()) {
@@ -57,16 +62,33 @@ class ProfileFragment : Fragment() {
         }
 
         binding.changeSettingsView.setOnClickListener {
-            it.findNavController().navigate(R.id.action_navigationProfile_to_edit_profile_graph)
+            it.findNavController().navigate(R.id.action_navigationProfile_to_changeProfileFragment2)
         }
 
         binding.privacyView.setOnClickListener {
-            //logout()
+            presenter.logout()
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onLogoutSuccess(data: Boolean) {
+        PilatusShowroom.getApp().removeToken()
+        findNavController().navigate(R.id.action_navigationProfile_self)
+    }
+
+    override fun onLogoutFailed(message: String) {
+        Toast.makeText(activity, "Gagal: $message", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showLoading() {
+
+    }
+
+    override fun dismissLoading() {
+
     }
 }

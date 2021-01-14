@@ -8,15 +8,6 @@ import java.util.*
 
 object Helpers {
 
-    var tiki = false
-    var jne = false
-    var pos = false
-
-
-    fun TextView.formatPrice(value: String) {
-        this.text = getCurrencyIDR(value.toDouble())
-    }
-
     fun getCurrencyIDR(price: Double): String {
         val format = DecimalFormat("#,###,###")
         return "Rp " + format.format(price).replace(",".toRegex(), ".")

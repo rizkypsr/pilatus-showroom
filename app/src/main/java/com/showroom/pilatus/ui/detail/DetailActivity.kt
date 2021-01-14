@@ -12,6 +12,7 @@ import com.showroom.pilatus.model.response.cart.ShoppingCart
 import com.showroom.pilatus.model.response.home.Data
 import com.showroom.pilatus.ui.ongkir.cost.OngkirActivity
 import com.showroom.pilatus.utils.Helpers
+import io.paperdb.Paper
 
 class DetailActivity : AppCompatActivity() {
 
@@ -26,6 +27,8 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        Paper.init(this)
 
         data = intent.getParcelableExtra("product")!!
 
@@ -46,12 +49,6 @@ class DetailActivity : AppCompatActivity() {
         }
 
         binding.btnOrderNow.setOnClickListener {
-            val toOngkirActivity = Intent(this, OngkirActivity::class.java)
-            toOngkirActivity.putExtra("product", data)
-            startActivity(toOngkirActivity)
-        }
-
-        binding.btnAddToCart.setOnClickListener {
             val item = CartItem(data)
 
             ShoppingCart.addItem(item)
@@ -59,5 +56,6 @@ class DetailActivity : AppCompatActivity() {
             // notify user
             Toast.makeText(this, "${data.name} added to your cart", Toast.LENGTH_LONG).show()
         }
+
     }
 }

@@ -11,9 +11,6 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_navigationHome_to_cartFragment"
-            app:destination="@id/cartFragment" />
-        <action
             android:id="@+id/action_navigationHome_to_navigationCategory"
             app:destination="@id/navigationCategory" />
     </fragment>
@@ -33,16 +30,22 @@
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
         <action
-            android:id="@+id/action_navigationProfile_to_edit_profile_graph"
-            app:destination="@id/edit_profile_graph" />
-        <action
             android:id="@+id/action_navigationProfile_to_navigationHome"
             app:destination="@id/navigationHome" />
+        <action
+            android:id="@+id/action_navigationProfile_to_changeProfileFragment2"
+            app:destination="@id/changeProfileFragment2" />
+        <action
+            android:id="@+id/action_navigationProfile_self"
+            app:destination="@id/navigationProfile" />
     </fragment>
-    <include app:graph="@navigation/edit_profile_graph" />
     <fragment
-        android:id="@+id/cartFragment"
-        android:name="com.showroom.pilatus.ui.cart.CartFragment"
-        android:label="fragment_cart"
-        tools:layout="@layout/fragment_cart" />
+        android:id="@+id/changeProfileFragment2"
+        android:name="com.showroom.pilatus.ui.changeProfile.ChangeProfileFragment"
+        android:label="fragment_change_profile"
+        tools:layout="@layout/fragment_change_profile" >
+        <action
+            android:id="@+id/action_changeProfileFragment2_to_navigationProfile"
+            app:destination="@id/navigationProfile" />
+    </fragment>
 </navigation>

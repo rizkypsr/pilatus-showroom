@@ -1,22 +1,31 @@
 package com.showroom.pilatus.ui.changeProfile
 
+import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.gson.Gson
 import com.showroom.pilatus.PilatusShowroom
+import com.showroom.pilatus.R
 import com.showroom.pilatus.databinding.FragmentChangeProfileBinding
 import com.showroom.pilatus.model.response.login.User
+import com.showroom.pilatus.ui.login.LoginPresenter
 
-class ChangeProfileFragment : Fragment() {
+class ChangeProfileFragment : Fragment(), ProfileContract.View {
 
     private var _binding: FragmentChangeProfileBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var presenter: ProfilePresenter
+    private var progressDialog: Dialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,48 +38,62 @@ class ChangeProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val data = Gson().fromJson(PilatusShowroom.getApp().getUser(), User::class.java)
+        presenter = ProfilePresenter(this)
 
-        binding.textProfileName.text = data.name
-        binding.textProfileEmail.text = data.email
-        binding.textProfileAddress.text = data.address
-        binding.textProfileCity.text = data.city
-        binding.textProfileHouseNo.text = data.houseNumber
-        binding.textProfilePhone.text = data.phoneNumber
+        initViews()
+
+        val data = Gson().fromJson(PilatusShowroom.getApp().getUser(), User::class.java)
 
         Glide.with(view)
             .load(data.profilePhotoUrl)
             .apply(RequestOptions.circleCropTransform())
             .into(binding.circleImageView)
 
-        binding.btnEditProfileName.setOnClickListener {
-            val name = binding.textProfileName.text as String
-            val toEditNameFragment =
-                ChangeProfileFragmentDirections.actionChangeProfileFragmentToEditNameFragment(name)
-            it.findNavController().navigate(toEditNameFragment)
-        }
+        binding.tfName.editText?.setText(data.name)
+        binding.tfEmail.editText?.setText(data.email)
+        binding.tfAddress.editText?.setText(data.address)
+        binding.tfHouseNo.editText?.setText(data.houseNumber)
+        binding.tfPhone.editText?.setText(data.phoneNumber)
+        binding.tfCity.editText?.setText(data.city)
 
-        binding.btnEditProfileEmail.setOnClickListener {
-            val email = binding.textProfileEmail.text as String
-            val toEditNameFragment =
-                ChangeProfileFragmentDirections.actionChangeProfileFragmentToEditEmailFragment(email)
-            it.findNavController().navigate(toEditNameFragment)
-        }
+        binding.btnChangeProfile.setOnClickListener {
+            val edtName = binding.tfName.editText?.text.toString()
+            val edtEmail = binding.tfEmail.editText?.text.toString()
+            val edtAddress = binding.tfAddress.editText?.text.toString()
+            val edtHouseNo = binding.tfHouseNo.editText?.text.toString()
+            val edtPhone = binding.tfPhone.editText?.text.toString()
+            val edtCity = binding.tfCity.editText?.text.toString()
 
-        binding.btnEditProfilePhone.setOnClickListener {
-            val phone = binding.textProfilePhone.text as String
-            val toEditProfileFragment =
-                ChangeProfileFragmentDirections.actionChangeProfileFragmentToEditPhoneFragment(phone)
-            it.findNavController().navigate(toEditProfileFragment)
-        }
+            when {
+                edtName.isEmpty() -> {
+                    binding.tfName.error = "Name field cannot be empty !"
+                    return@setOnClickListener
+                }
+                edtEmail.isEmpty() -> {
+                    binding.tfEmail.error = "Email field cannot be empty !"
+                    return@setOnClickListener
+                }
+                edtAddress.isEmpty() -> {
+                    binding.tfAddress.error = "Address field cannot be empty !"
+                    return@setOnClickListener
+                }
+                edtHouseNo.isEmpty() -> {
+                    binding.tfHouseNo.error = "House Number field cannot be empty !"
+                    return@setOnClickListener
+                }
+                edtPhone.isEmpty() -> {
+                    binding.tfPhone.error = "Phone Number field cannot be empty !"
+                    return@setOnClickListener
+                }
+                edtCity.isEmpty() -> {
+                    binding.tfCity.error = "City field cannot be empty !"
+                    return@setOnClickListener
+                }
+            }
 
-        binding.btnEditProfileAddress.setOnClickListener {
-            val address = binding.textProfileAddress.text as String
-            val toEditAddressFragment =
-                ChangeProfileFragmentDirections.actionChangeProfileFragmentToEditAddressFragment(
-                    address
-                )
-            it.findNavController().navigate(toEditAddressFragment)
+            presenter.changeProfile(
+                edtName, edtEmail, edtAddress, edtCity, edtHouseNo, edtPhone
+            )
         }
 
         binding.topAppBar.setNavigationOnClickListener {
@@ -81,6 +104,38 @@ class ChangeProfileFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun initViews() {
+        progressDialog = Dialog(requireActivity())
+        val dialogLayout = layoutInflater.inflate(R.layout.dialog_loader, null)
+
+        progressDialog?.let {
+            it.setContentView(dialogLayout)
+            it.setCancelable(false)
+            it.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        }
+    }
+
+    override fun onChangeProfileSuccess(user: User) {
+        val gson = Gson()
+        val json = gson.toJson(user)
+
+        PilatusShowroom.getApp().setUser(json)
+
+        findNavController().navigate(R.id.action_changeProfileFragment2_to_navigationProfile)
+    }
+
+    override fun onChangeProfileFailed(message: String) {
+        Toast.makeText(activity, "Gagal: $message", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showLoading() {
+        progressDialog?.show()
+    }
+
+    override fun dismissLoading() {
+        progressDialog?.dismiss()
     }
 
 }

@@ -16,6 +16,7 @@ import com.showroom.pilatus.R
 import com.showroom.pilatus.adapter.ProductListAdapter
 import com.showroom.pilatus.databinding.FragmentHomeBinding
 import com.showroom.pilatus.model.response.home.Data
+import com.showroom.pilatus.ui.cart.CartActivity
 import com.showroom.pilatus.ui.detail.DetailActivity
 import com.showroom.pilatus.ui.search.SearchActivity
 
@@ -48,7 +49,7 @@ class HomeFragment : Fragment(), HomeContract.View {
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.menu_cart -> {
-                    findNavController().navigate(R.id.action_navigationHome_to_cartFragment)
+                    startActivity(Intent(activity, CartActivity::class.java))
                     true
                 }
                 else -> false

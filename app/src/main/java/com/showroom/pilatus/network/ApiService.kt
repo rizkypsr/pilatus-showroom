@@ -5,6 +5,7 @@ import com.showroom.pilatus.model.response.checkout.CheckoutData
 import com.showroom.pilatus.model.response.home.CategoryResponse
 import com.showroom.pilatus.model.response.home.Data
 import com.showroom.pilatus.model.response.login.LoginResponse
+import com.showroom.pilatus.model.response.login.User
 import com.showroom.pilatus.model.response.ongkir.city.CityResponse
 import com.showroom.pilatus.model.response.ongkir.cost.CostResponse
 import com.showroom.pilatus.model.response.transaction.TransactionData
@@ -33,6 +34,17 @@ interface ApiService {
         @Field("email") email: String,
         @Field("password") password: String
     ): Observable<Wrapper<LoginResponse>>
+
+    @FormUrlEncoded
+    @POST("user")
+    fun changeProfile(
+        @Field("name") name: String,
+        @Field("email") email: String,
+        @Field("address") address: String,
+        @Field("city") city: String,
+        @Field("houseNumber") houseNumber: String,
+        @Field("phoneNumber") phoneNumber: String,
+    ): Observable<Wrapper<User>>
 
     @FormUrlEncoded
     @POST("register")
@@ -81,4 +93,7 @@ interface ApiService {
         @Field("courier_type") courierType: String,
         @Field("courier_price") courierPrice: Long,
     ): Observable<Wrapper<CheckoutData>>
+
+    @POST("logout")
+    fun logout(): Observable<Wrapper<Boolean>>
 }

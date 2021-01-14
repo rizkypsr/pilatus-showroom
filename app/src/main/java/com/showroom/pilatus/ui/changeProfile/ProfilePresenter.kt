@@ -1,13 +1,11 @@
-package com.showroom.pilatus.ui.orders
+package com.showroom.pilatus.ui.changeProfile
 
-import android.util.Log
-import com.showroom.pilatus.PilatusShowroom
 import com.showroom.pilatus.network.HttpClient
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class OrderPresenter(private val view: OrderContract.View) : OrderContract.Presenter {
+class ProfilePresenter(private val view: ProfileContract.View) : ProfileContract.Presenter {
 
     private val mCompositeDisposable: CompositeDisposable?
 
@@ -15,25 +13,37 @@ class OrderPresenter(private val view: OrderContract.View) : OrderContract.Prese
         this.mCompositeDisposable = CompositeDisposable()
     }
 
-    override fun getTransaction() {
+    override fun changeProfile(
+        name: String,
+        email: String,
+        address: String,
+        city: String,
+        houseNumber: String,
+        phoneNumber: String
+    ) {
         view.showLoading()
-
-        val disposable = HttpClient.getInstance().getApi()!!.getTransaction()
+        val disposable = HttpClient.getInstance().getApi()!!.changeProfile(
+            name,
+            email,
+            address,
+            city,
+            houseNumber,
+            phoneNumber
+        )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
                     view.dismissLoading()
-                    Log.d("tolong", "onViewCreated: $it")
-                    if (it.meta.status.equals("success", true)) {
-                        it.data.let { it1 -> view.onTransactionSuccess(it1!!) }
+                    if (it.meta.code == 200) {
+                        it.data?.let { it1 -> view.onChangeProfileSuccess(it1) }
                     } else {
-                        it.meta.message.let { it1 -> view.onTransactionFailed(it1) }
+                        it.meta.message.let { it1 -> view.onChangeProfileFailed(it1) }
                     }
                 },
                 {
                     view.dismissLoading()
-                    view.onTransactionFailed(it.message.toString())
+                    view.onChangeProfileFailed(it.message.toString())
                 }
             )
         mCompositeDisposable!!.add(disposable)

@@ -5,17 +5,20 @@ import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
-import com.bumptech.glide.Glide
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.showroom.pilatus.PilatusShowroom
 import com.showroom.pilatus.R
 import com.showroom.pilatus.databinding.ActivityPaymentBinding
+import com.showroom.pilatus.model.response.cart.ShoppingCart
 import com.showroom.pilatus.model.response.home.Data
 import com.showroom.pilatus.model.response.login.User
 import com.showroom.pilatus.model.response.ongkir.city.Result
 import com.showroom.pilatus.model.response.ongkir.cost.Cost
 import com.showroom.pilatus.utils.Helpers
+import io.paperdb.Paper
 
 class PaymentActivity : AppCompatActivity(), PaymentContract.View {
 
@@ -35,46 +38,51 @@ class PaymentActivity : AppCompatActivity(), PaymentContract.View {
 
         presenter = PaymentPresenter(this)
 
-        val data = intent.getParcelableExtra<Data>("productDetail")
+        val dataCart = ShoppingCart.getCart()
         val dataCourier = intent.getParcelableExtra<Cost>("courierDetail")
         val dataCity = intent.getParcelableExtra<Result>("cityDetail")
-        val quantity = intent.getIntExtra("productQuantity", 1)
-
         val dataUser = Gson().fromJson(PilatusShowroom.getApp().getUser(), User::class.java)
+        val dataProduct: MutableList<Data> = mutableListOf()
 
-        if (data != null) {
+        ShoppingCart.getCart().forEach {
+            dataProduct.add(it.product)
+        }
 
-            binding.apply {
-                val totalPrice = (quantity * data.price) + dataCourier!!.cost[0].value
+        binding.apply {
+            val adapter = ProductPaymentListAdapter(dataCart)
+            var totalPrice = 0
 
-                Glide.with(this@PaymentActivity)
-                    .load(data.picturePath)
-                    .into(ivProductPhoto)
+            dataCart.forEach {
+                totalPrice += (it.quantity * it.product.price)
+            }
 
-                tvProductTitle.text = data.name
-                tvProductPrice.text = Helpers.getCurrencyIDR(data.price.toDouble())
-                tvProductPricePreview.text = Helpers.getCurrencyIDR(data.price.toDouble())
-                tvTotalPrice.text = Helpers.getCurrencyIDR(totalPrice.toDouble())
-                tvName.text = dataUser.name
-                tvPhone.text = dataUser.phoneNumber
-                tvAddress.text = dataUser.address + ", ID ${dataCity!!.postalCode}"
-                tvCity.text = dataCity.cityName
-                tvProvince.text = dataCity.province
-                tvCourierType.text = "${dataCourier.service} (${dataCourier.cost[0].etd} hari)"
-                tvCourierPrice.text = Helpers.getCurrencyIDR(dataCourier.cost[0].value.toDouble())
+            recyclerViewProduct.layoutManager = LinearLayoutManager(this@PaymentActivity)
+            recyclerViewProduct.adapter = adapter
 
-                btnCheckout.setOnClickListener {
+            tvTotalPrice.text = Helpers.getCurrencyIDR(totalPrice.toDouble())
+            tvName.text = dataUser.name
+            tvPhone.text = dataUser.phoneNumber
+            tvAddress.text = dataUser.address + ", ID ${dataCity!!.postalCode}"
+            tvCity.text = dataCity.cityName
+            tvProvince.text = dataCity.province
+            tvCourierType.text = "${dataCourier!!.service} (${dataCourier.cost[0].etd} hari)"
+            tvCourierPrice.text = Helpers.getCurrencyIDR(dataCourier.cost[0].value.toDouble())
+
+            btnCheckout.setOnClickListener {
+
+                dataCart.forEach {
                     presenter.getCheckout(
-                        data.id,
+                        it.product.id,
                         dataUser.id,
-                        quantity,
-                        totalPrice.toLong(),
+                        it.quantity,
+                        (it.quantity * it.product.price).toLong(),
                         dataCourier.service,
                         dataCourier.cost[0].value.toLong()
                     )
                 }
             }
         }
+
     }
 
     private fun initView() {
@@ -92,6 +100,7 @@ class PaymentActivity : AppCompatActivity(), PaymentContract.View {
         checkoutResponse: com.showroom.pilatus.model.response.checkout.CheckoutData
 
     ) {
+        Paper.book().delete("cart")
         val toPaymentSuccess = Intent(this, PaymentSuccessActivity::class.java)
         startActivity(toPaymentSuccess)
     }
