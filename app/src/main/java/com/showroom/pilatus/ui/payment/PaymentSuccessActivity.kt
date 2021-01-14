@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import com.showroom.pilatus.MainActivity
 import com.showroom.pilatus.databinding.ActivityPaymentSuccessBinding
-import com.showroom.pilatus.ui.orders.OrdersFragment
+//import com.showroom.pilatus.ui.orders.OrdersFragment
 
 class PaymentSuccessActivity : AppCompatActivity() {
 

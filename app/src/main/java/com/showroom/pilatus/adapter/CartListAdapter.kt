@@ -3,6 +3,7 @@ package com.showroom.pilatus.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.showroom.pilatus.databinding.ItemListCartBinding
 import com.showroom.pilatus.model.response.cart.CartItem
 import com.showroom.pilatus.utils.Helpers
@@ -36,9 +37,9 @@ class CartListAdapter(
         fun bind(cartItem: CartItem) {
 
             with(binding) {
-//                Glide.with(itemView.context)
-//                    .load(product.)
-//                    .into(ivProductPhoto)
+                Glide.with(itemView.context)
+                    .load(cartItem.product.picturePath)
+                    .into(ivProductPhoto)
 
                 textProductTitleCart.text = cartItem.product.name
                 textProductCartPrice.text =

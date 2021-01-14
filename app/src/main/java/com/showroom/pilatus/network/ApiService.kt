@@ -1,37 +1,32 @@
 package com.showroom.pilatus.network
 
 import com.showroom.pilatus.model.Wrapper
-import com.showroom.pilatus.model.response.checkout.CheckoutResponse
+import com.showroom.pilatus.model.response.checkout.CheckoutData
 import com.showroom.pilatus.model.response.home.CategoryResponse
 import com.showroom.pilatus.model.response.home.Data
-import com.showroom.pilatus.model.response.home.ProductResponse
 import com.showroom.pilatus.model.response.login.LoginResponse
-import com.showroom.pilatus.model.response.transaction.TransactionResponse
-import com.showroom.pilatus.model.response.transaction.TransactionResponseItem
+import com.showroom.pilatus.model.response.ongkir.city.CityResponse
+import com.showroom.pilatus.model.response.ongkir.cost.CostResponse
+import com.showroom.pilatus.model.response.transaction.TransactionData
 import io.reactivex.Observable
 import okhttp3.MultipartBody
 import retrofit2.http.*
 
+
 interface ApiService {
 
-//    @Headers("Content-Type: application/json", "Accept: application/json")
-//    @GET("product")
-//    fun getProducts(): Call<Data>
+    @GET("city")
+    fun getCity(): Observable<CityResponse>
 
+    @FormUrlEncoded
+    @POST("cost")
+    fun postCost(
+        @Field("origin") origin: String,
+        @Field("destination") destination: String,
+        @Field("weight") weight: Int,
+        @Field("courier") courier: String
+    ): Observable<CostResponse>
 
-//
-//    @Headers("Content-Type: application/json", "Accept: application/json")
-//    @GET("user")
-//    fun getUser(
-//        @Header("Authorization") token: String
-//    ): Call<UserResponse>
-
-    //    @Headers("Content-Type: application/json", "Accept: application/json")
-//    @POST("logout")
-//    fun logout(
-//        @Header("Authorization") token: String
-//    ): Call<LogoutResponse>
-//
     @FormUrlEncoded
     @POST("login")
     fun login(
@@ -70,7 +65,7 @@ interface ApiService {
     ): Observable<Wrapper<List<Data>>>
 
     @GET("transaction")
-    fun getTransaction(): Observable<Wrapper<List<TransactionResponseItem>>>
+    fun getTransaction(): Observable<Wrapper<List<TransactionData>>>
 
     @GET("category")
     fun getCategories(): Observable<Wrapper<List<CategoryResponse>>>
@@ -78,10 +73,12 @@ interface ApiService {
     @FormUrlEncoded
     @POST("checkout")
     fun checkout(
-        @Field("product_id") product_id: String,
-        @Field("user_id") user_id: String,
-        @Field("quantity") quantity: String,
-        @Field("total") total: String,
+        @Field("product_id") productId: Int,
+        @Field("user_id") userId: Int,
+        @Field("quantity") quantity: Int,
+        @Field("total") total: Long,
         @Field("status") status: String,
-    ): Observable<Wrapper<CheckoutResponse>>
+        @Field("courier_type") courierType: String,
+        @Field("courier_price") courierPrice: Long,
+    ): Observable<Wrapper<CheckoutData>>
 }

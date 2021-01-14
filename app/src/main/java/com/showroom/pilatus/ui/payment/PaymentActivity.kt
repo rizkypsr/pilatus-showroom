@@ -1,19 +1,20 @@
 package com.showroom.pilatus.ui.payment
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.showroom.pilatus.PilatusShowroom
 import com.showroom.pilatus.R
 import com.showroom.pilatus.databinding.ActivityPaymentBinding
-import com.showroom.pilatus.model.response.checkout.CheckoutResponse
 import com.showroom.pilatus.model.response.home.Data
 import com.showroom.pilatus.model.response.login.User
+import com.showroom.pilatus.model.response.ongkir.city.Result
+import com.showroom.pilatus.model.response.ongkir.cost.Cost
 import com.showroom.pilatus.utils.Helpers
 
 class PaymentActivity : AppCompatActivity(), PaymentContract.View {
@@ -24,6 +25,7 @@ class PaymentActivity : AppCompatActivity(), PaymentContract.View {
 
     private var progressDialog: Dialog? = null
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPaymentBinding.inflate(layoutInflater)
@@ -34,6 +36,8 @@ class PaymentActivity : AppCompatActivity(), PaymentContract.View {
         presenter = PaymentPresenter(this)
 
         val data = intent.getParcelableExtra<Data>("productDetail")
+        val dataCourier = intent.getParcelableExtra<Cost>("courierDetail")
+        val dataCity = intent.getParcelableExtra<Result>("cityDetail")
         val quantity = intent.getIntExtra("productQuantity", 1)
 
         val dataUser = Gson().fromJson(PilatusShowroom.getApp().getUser(), User::class.java)
@@ -41,7 +45,7 @@ class PaymentActivity : AppCompatActivity(), PaymentContract.View {
         if (data != null) {
 
             binding.apply {
-                val totalPrice = quantity * data.price
+                val totalPrice = (quantity * data.price) + dataCourier!!.cost[0].value
 
                 Glide.with(this@PaymentActivity)
                     .load(data.picturePath)
@@ -53,16 +57,20 @@ class PaymentActivity : AppCompatActivity(), PaymentContract.View {
                 tvTotalPrice.text = Helpers.getCurrencyIDR(totalPrice.toDouble())
                 tvName.text = dataUser.name
                 tvPhone.text = dataUser.phoneNumber
-                tvAddress.text = dataUser.phoneNumber
-                tvCity.text = dataUser.city
+                tvAddress.text = dataUser.address + ", ID ${dataCity!!.postalCode}"
+                tvCity.text = dataCity.cityName
+                tvProvince.text = dataCity.province
+                tvCourierType.text = "${dataCourier.service} (${dataCourier.cost[0].etd} hari)"
+                tvCourierPrice.text = Helpers.getCurrencyIDR(dataCourier.cost[0].value.toDouble())
 
                 btnCheckout.setOnClickListener {
                     presenter.getCheckout(
-                        data.id.toString(),
-                        dataUser.id.toString(),
-                        quantity.toString(),
-                        totalPrice.toString(),
-                        it
+                        data.id,
+                        dataUser.id,
+                        quantity,
+                        totalPrice.toLong(),
+                        dataCourier.service,
+                        dataCourier.cost[0].value.toLong()
                     )
                 }
             }
@@ -80,7 +88,10 @@ class PaymentActivity : AppCompatActivity(), PaymentContract.View {
         }
     }
 
-    override fun onCheckoutSuccess(checkoutResponse: CheckoutResponse, view: View) {
+    override fun onCheckoutSuccess(
+        checkoutResponse: com.showroom.pilatus.model.response.checkout.CheckoutData
+
+    ) {
         val toPaymentSuccess = Intent(this, PaymentSuccessActivity::class.java)
         startActivity(toPaymentSuccess)
     }

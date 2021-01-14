@@ -2,21 +2,15 @@ package com.showroom.pilatus.ui.orders
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewParent
 import android.widget.Toast
-import androidx.viewpager.widget.ViewPager
-import com.google.android.material.tabs.TabLayout
 import com.showroom.pilatus.R
 import com.showroom.pilatus.adapter.OrdersPagerAdapter
 import com.showroom.pilatus.databinding.FragmentOrdersBinding
-import com.showroom.pilatus.model.response.transaction.TransactionResponse
-import com.showroom.pilatus.model.response.transaction.TransactionResponseItem
-import com.showroom.pilatus.ui.home.HomePresenter
+import com.showroom.pilatus.model.response.transaction.TransactionData
 
 class OrdersFragment : Fragment(), OrderContract.View {
 
@@ -26,8 +20,8 @@ class OrdersFragment : Fragment(), OrderContract.View {
     private lateinit var presenter: OrderPresenter
 
     private var progressDialog: Dialog? = null
-    private var pendingOrders: ArrayList<TransactionResponseItem>? = ArrayList()
-    private var passOrders: ArrayList<TransactionResponseItem>? = ArrayList()
+    private var pendingOrders: ArrayList<TransactionData>? = ArrayList()
+    private var passOrders: ArrayList<TransactionData>? = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,7 +58,7 @@ class OrdersFragment : Fragment(), OrderContract.View {
         }
     }
 
-    override fun onTransactionSuccess(data: List<TransactionResponseItem>) {
+    override fun onTransactionSuccess(data: List<TransactionData>) {
         for (a in data.indices) {
             if (data[a].status.equals("ON_DELIVERY", true)
                 || data[a].status.equals("PENDING", true)

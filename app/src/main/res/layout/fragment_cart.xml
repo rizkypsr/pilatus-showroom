@@ -64,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins"
-                android:text="Rp. 39000"
+                android:text="-"
                 android:textColor="@color/primaryTextColor"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"

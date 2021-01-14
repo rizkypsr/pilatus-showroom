@@ -6,13 +6,11 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.google.android.material.snackbar.Snackbar
 import com.showroom.pilatus.databinding.ActivityDetailBinding
 import com.showroom.pilatus.model.response.cart.CartItem
 import com.showroom.pilatus.model.response.cart.ShoppingCart
 import com.showroom.pilatus.model.response.home.Data
-import com.showroom.pilatus.ui.ongkir.OngkirActivity
-import com.showroom.pilatus.ui.payment.PaymentActivity
+import com.showroom.pilatus.ui.ongkir.cost.OngkirActivity
 import com.showroom.pilatus.utils.Helpers
 
 class DetailActivity : AppCompatActivity() {
@@ -48,9 +46,9 @@ class DetailActivity : AppCompatActivity() {
         }
 
         binding.btnOrderNow.setOnClickListener {
-            val toPaymentActivity = Intent(this, PaymentActivity::class.java)
-            toPaymentActivity.putExtra("productDetail", data)
-            startActivity(toPaymentActivity)
+            val toOngkirActivity = Intent(this, OngkirActivity::class.java)
+            toOngkirActivity.putExtra("product", data)
+            startActivity(toOngkirActivity)
         }
 
         binding.btnAddToCart.setOnClickListener {

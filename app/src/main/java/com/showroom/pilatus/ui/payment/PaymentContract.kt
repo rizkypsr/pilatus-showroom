@@ -2,23 +2,23 @@ package com.showroom.pilatus.ui.payment
 
 import com.showroom.pilatus.base.BasePresenter
 import com.showroom.pilatus.base.BaseView
-import com.showroom.pilatus.model.response.checkout.CheckoutResponse
+import com.showroom.pilatus.model.response.checkout.CheckoutData
 
 interface PaymentContract {
 
     interface View : BaseView {
-        fun onCheckoutSuccess(checkoutResponse: CheckoutResponse, view: android.view.View)
+        fun onCheckoutSuccess(checkoutResponse: CheckoutData)
         fun onCheckoutFailed(message: String)
     }
 
     interface Presenter : PaymentContract, BasePresenter {
         fun getCheckout(
-            productId: String,
-            userId: String,
-            quantity: String,
-            total: String,
-            viewParms: android.view.View
+            productId: Int,
+            userId: Int,
+            quantity: Int,
+            total: Long,
+            courierType: String,
+            courierPrice: Long
         )
     }
-
 }

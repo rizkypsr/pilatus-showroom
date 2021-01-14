@@ -24,7 +24,7 @@ class OrderPresenter(private val view: OrderContract.View) : OrderContract.Prese
                     view.dismissLoading()
 
                     if (it.meta.status.equals("success", true)) {
-                        it.data?.let { it1 -> view.onTransactionSuccess(it1) }
+                        it.data.let { it1 -> view.onTransactionSuccess(it1!!) }
                     } else {
                         it.meta.message.let { it1 -> view.onTransactionFailed(it1) }
                     }

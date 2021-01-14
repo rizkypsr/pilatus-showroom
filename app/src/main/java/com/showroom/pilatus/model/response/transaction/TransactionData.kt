@@ -1,10 +1,21 @@
-package com.showroom.pilatus.model.response.checkout
+package com.showroom.pilatus.model.response.transaction
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
-data class CheckoutResponse(
+@Parcelize
+data class TransactionData(
+    @Expose
+    @SerializedName("courier_price")
+    val courierPrice: Int,
+
+    @Expose
+    @SerializedName("courier_type")
+    val courierType: String,
+
     @Expose
     @SerializedName("created_at")
     val createdAt: Long,
@@ -48,4 +59,4 @@ data class CheckoutResponse(
     @Expose
     @SerializedName("user_id")
     val userId: Int
-)
+) : Parcelable

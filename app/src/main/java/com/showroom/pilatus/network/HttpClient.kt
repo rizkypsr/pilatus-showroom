@@ -47,11 +47,10 @@ class HttpClient {
         builder.connectTimeout(2, TimeUnit.MINUTES)
         builder.readTimeout(2, TimeUnit.MINUTES)
 
-        if (BuildConfig.DEBUG) {
-            var interceptor = HttpLoggingInterceptor()
-            interceptor.level = HttpLoggingInterceptor.Level.BODY
-            builder.addInterceptor(interceptor)
-        }
+        var interceptor = HttpLoggingInterceptor()
+        interceptor.level = HttpLoggingInterceptor.Level.BODY
+        builder.addInterceptor(interceptor)
+
 
         if (token != null) {
             builder.addInterceptor(getInterceptorWithHeader("Authorization", "Bearer ${token}"))
@@ -59,7 +58,7 @@ class HttpClient {
 
         val okHttpClient = builder.build()
         client = Retrofit.Builder()
-            .baseUrl("http://192.168.0.103:8888/pilatus-server/public/api/")
+            .baseUrl("http://10.20.35.244:8888/pilatus-server/public/api/")
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create(Helpers.getDefaultGson()))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -81,7 +80,7 @@ class HttpClient {
             for ((key, value) in headers) {
                 builder.addHeader(key, value)
             }
-            builder.method(original.method(), original.body())
+            builder.method(original.method, original.body)
             it.proceed(builder.build())
         }
     }

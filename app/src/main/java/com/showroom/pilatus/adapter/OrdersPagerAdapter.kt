@@ -7,15 +7,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.showroom.pilatus.R
-import com.showroom.pilatus.model.response.transaction.TransactionResponseItem
+import com.showroom.pilatus.model.response.transaction.TransactionData
 import com.showroom.pilatus.ui.orders.*
 
 class OrdersPagerAdapter(
     private val context: Context, fm: FragmentManager
 ) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
-    var inProgressList: ArrayList<TransactionResponseItem>? = ArrayList()
-    var passOrderList: ArrayList<TransactionResponseItem>? = ArrayList()
+    private var inProgressList: ArrayList<TransactionData>? = ArrayList()
+    private var passOrderList: ArrayList<TransactionData>? = ArrayList()
 
     @StringRes
     private val TAB_TITLES = intArrayOf(
@@ -49,8 +49,8 @@ class OrdersPagerAdapter(
     }
 
     fun setData(
-        inProgressListParms: ArrayList<TransactionResponseItem>?,
-        passOrderListParms: ArrayList<TransactionResponseItem>?
+        inProgressListParms: ArrayList<TransactionData>?,
+        passOrderListParms: ArrayList<TransactionData>?
     ) {
         inProgressList = inProgressListParms
         passOrderList = passOrderListParms

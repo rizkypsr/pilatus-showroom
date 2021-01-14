@@ -8,6 +8,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class User(
+
     @Expose
     @SerializedName("address")
     val address: String,
@@ -22,7 +23,7 @@ data class User(
 
     @Expose
     @SerializedName("current_team_id")
-    val currentTeamId: Int?,
+    val currentTeamId: Int,
 
     @Expose
     @SerializedName("email")
@@ -30,7 +31,7 @@ data class User(
 
     @Expose
     @SerializedName("email_verified_at")
-    val emailVerifiedAt: Long?,
+    val emailVerifiedAt: Long,
 
     @Expose
     @SerializedName("houseNumber")
@@ -50,7 +51,7 @@ data class User(
 
     @Expose
     @SerializedName("picturePath")
-    val picturePath: String?,
+    val picturePath: String,
 
     @Expose
     @SerializedName("profile_photo_url")

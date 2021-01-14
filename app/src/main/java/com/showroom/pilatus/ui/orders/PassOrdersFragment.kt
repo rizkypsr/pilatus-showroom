@@ -6,15 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.showroom.pilatus.R
 import com.showroom.pilatus.adapter.PassOrdersListAdapter
-import com.showroom.pilatus.adapter.PendingOrdersListAdapter
+//import com.showroom.pilatus.adapter.PassOrdersListAdapter
 import com.showroom.pilatus.databinding.FragmentCompletedOrdersBinding
-import com.showroom.pilatus.databinding.FragmentToPayBinding
-import com.showroom.pilatus.model.response.transaction.TransactionResponseItem
-import com.showroom.pilatus.ui.detail.DetailActivity
+import com.showroom.pilatus.model.response.transaction.TransactionData
 
 class PassOrdersFragment : Fragment() {
 
@@ -22,7 +18,7 @@ class PassOrdersFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var adapter: PassOrdersListAdapter? = null
-    var passOrderList: ArrayList<TransactionResponseItem>? = ArrayList()
+    private var passOrderList: ArrayList<TransactionData>? = ArrayList()
 
 
     override fun onCreateView(
@@ -45,7 +41,7 @@ class PassOrdersFragment : Fragment() {
             binding.recyclerViewPassOrders.adapter = adapter
 
             adapter!!.setOnItemClickCallback(object : PassOrdersListAdapter.OnItemClickCallback {
-                override fun onItemClicked(transactionResponseItem: TransactionResponseItem) {
+                override fun onItemClicked(transactionResponseItem: TransactionData) {
                     val toDetail = Intent(activity, DetailOrderActivity::class.java)
                     toDetail.putExtra("order", transactionResponseItem)
                     startActivity(toDetail)

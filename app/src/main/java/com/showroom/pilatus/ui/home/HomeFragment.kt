@@ -2,6 +2,7 @@ package com.showroom.pilatus.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -61,6 +62,7 @@ class HomeFragment : Fragment(), HomeContract.View {
     }
 
     override fun onProductSuccess(it1: List<Data>) {
+        Log.d("JUNET", "onProductSuccess: $it1")
         binding.recyclerViewNewProducts.layoutManager =
             StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
         val newProductsListAdapter = ProductListAdapter(it1)

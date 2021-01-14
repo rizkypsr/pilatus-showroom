@@ -2,6 +2,7 @@ package com.showroom.pilatus.ui.cart
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import com.showroom.pilatus.databinding.FragmentCartBinding
 import com.showroom.pilatus.model.response.cart.CartItem
 import com.showroom.pilatus.model.response.cart.ShoppingCart
 import com.showroom.pilatus.ui.detail.DetailActivity
+import com.showroom.pilatus.utils.Helpers
 import io.paperdb.Paper
 
 class CartFragment : Fragment() {
@@ -35,6 +37,14 @@ class CartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        var totalPrice = 0
+
+        ShoppingCart.getCart().forEach {
+            totalPrice += (it.product.price * it.quantity)
+        }
+
+        binding.tvTotalPrice.text = Helpers.getCurrencyIDR(totalPrice.toDouble())
 
         binding.recyclerViewCart.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)

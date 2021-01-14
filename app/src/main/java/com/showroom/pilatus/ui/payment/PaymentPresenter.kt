@@ -1,7 +1,5 @@
 package com.showroom.pilatus.ui.payment
 
-import android.util.Log
-import android.view.View
 import com.showroom.pilatus.network.HttpClient
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -16,23 +14,24 @@ class PaymentPresenter(private val view: PaymentContract.View) : PaymentContract
     }
 
     override fun getCheckout(
-        productId: String,
-        userId: String,
-        quantity: String,
-        total: String,
-        viewParms: View
+        productId: Int,
+        userId: Int,
+        quantity: Int,
+        total: Long,
+        courierType: String,
+        courierPrice: Long
     ) {
         view.showLoading()
         val disposable = HttpClient.getInstance().getApi()!!.checkout(
-            productId ,userId, quantity, total, "PENDING"
+            productId, userId, quantity, total, "PENDING", courierType, courierPrice
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
                     view.dismissLoading()
-                    if (it.meta.status.equals("success", true)) {
-                        it.data?.let { it1 -> view.onCheckoutSuccess(it1, viewParms) }
+                    if (it.meta.code == 200) {
+                        it.data.let { it1 -> view.onCheckoutSuccess(it1!!) }
                     } else {
                         it.meta.message.let { it1 -> view.onCheckoutFailed(it1) }
                     }
@@ -40,12 +39,10 @@ class PaymentPresenter(private val view: PaymentContract.View) : PaymentContract
                 {
                     view.dismissLoading()
                     view.onCheckoutFailed(it.message.toString())
-                    Log.d("TAG", "getCheckout: ${it.cause.toString()}")
                 }
             )
         mCompositeDisposable!!.add(disposable)
     }
-
 
     override fun subscribe() {
 

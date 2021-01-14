@@ -6,13 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.showroom.pilatus.databinding.ItemListPassOrdersBinding
-import com.showroom.pilatus.databinding.ItemListPendingOrdersBinding
-import com.showroom.pilatus.model.response.transaction.TransactionResponseItem
+import com.showroom.pilatus.model.response.transaction.TransactionData
 import com.showroom.pilatus.utils.Helpers
 import com.showroom.pilatus.utils.Helpers.convertLongToTime
 
 class PassOrdersListAdapter(
-    private val listNewProducts: List<TransactionResponseItem>
+    private val listNewProducts: List<TransactionData>
 ) : RecyclerView.Adapter<PassOrdersListAdapter.NewProductsViewHolder>() {
 
     private var onItemClickCallback: OnItemClickCallback? = null
@@ -37,7 +36,7 @@ class PassOrdersListAdapter(
     inner class NewProductsViewHolder(private val binding: ItemListPassOrdersBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(transactionResponseItem: TransactionResponseItem) {
+        fun bind(transactionResponseItem: TransactionData) {
             with(binding) {
                 Glide.with(itemView.context)
                     .load(transactionResponseItem.product.picturePath)
@@ -45,11 +44,11 @@ class PassOrdersListAdapter(
 
                 tvProduct.text = transactionResponseItem.product.name
                 tvOrderDate.text =
-                    transactionResponseItem.product.createdAt.convertLongToTime("MMM dd, HH.mm")
+                    transactionResponseItem.createdAt.convertLongToTime("MMM dd, HH.mm")
                 tvPrice.text =
                     Helpers.getCurrencyIDR(transactionResponseItem.product.price.toDouble())
 
-                if (transactionResponseItem.status.equals("CANCELLED")) {
+                if (transactionResponseItem.status == "CANCELLED") {
                     tvStatusOrder.visibility = View.VISIBLE
                 }
 
@@ -61,6 +60,6 @@ class PassOrdersListAdapter(
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(transactionResponseItem: TransactionResponseItem)
+        fun onItemClicked(transactionResponseItem: TransactionData)
     }
 }

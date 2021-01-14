@@ -3,12 +3,13 @@ package com.showroom.pilatus.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.showroom.pilatus.databinding.ItemListPendingOrdersBinding
-import com.showroom.pilatus.model.response.transaction.TransactionResponseItem
+import com.showroom.pilatus.model.response.transaction.TransactionData
 import com.showroom.pilatus.utils.Helpers
 
 class PendingOrdersListAdapter(
-    private val listNewProducts: List<TransactionResponseItem>
+    private val listNewProducts: List<TransactionData>
 ) : RecyclerView.Adapter<PendingOrdersListAdapter.NewProductsViewHolder>() {
 
     private var onItemClickCallback: OnItemClickCallback? = null
@@ -33,11 +34,11 @@ class PendingOrdersListAdapter(
     inner class NewProductsViewHolder(private val binding: ItemListPendingOrdersBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(transactionResponseItem: TransactionResponseItem) {
+        fun bind(transactionResponseItem: TransactionData) {
             with(binding) {
-//                Glide.with(itemView.context)
-//                    .load(product.)
-//                    .into(ivProductPhoto)
+                Glide.with(itemView.context)
+                    .load(transactionResponseItem.product.picturePath)
+                    .into(ivProduct)
 
                 tvProduct.text = transactionResponseItem.product.name
                 tvPrice.text =
@@ -51,6 +52,6 @@ class PendingOrdersListAdapter(
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(transactionResponseItem: TransactionResponseItem)
+        fun onItemClicked(transactionResponseItem: TransactionData)
     }
 }
