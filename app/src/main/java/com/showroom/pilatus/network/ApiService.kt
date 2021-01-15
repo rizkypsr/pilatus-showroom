@@ -59,10 +59,6 @@ interface ApiService {
         @Field("phoneNumber") phoneNumber: String,
     ): Observable<Wrapper<LoginResponse>>
 
-    @Multipart
-    @POST("user/photo")
-    fun registerPhoto(@Part profileImage: MultipartBody.Part): Observable<Wrapper<Any>>
-
     @GET("product")
     fun getProducts(): Observable<Wrapper<List<Data>>>
 
@@ -96,4 +92,8 @@ interface ApiService {
 
     @POST("logout")
     fun logout(): Observable<Wrapper<Boolean>>
+
+    @Multipart
+    @POST("user/photo")
+    fun registerPhoto(@Part profileImage: MultipartBody.Part): Observable<Wrapper<Any>>
 }

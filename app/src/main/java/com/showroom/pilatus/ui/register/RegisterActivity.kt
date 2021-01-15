@@ -1,12 +1,17 @@
 package com.showroom.pilatus.ui.register
 
+import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.gson.Gson
 import com.showroom.pilatus.MainActivity
 import com.showroom.pilatus.PilatusShowroom
@@ -22,6 +27,20 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
     private var progressDialog: Dialog? = null
     private lateinit var data: RegisterRequest
 
+    var filePath: Uri? = null
+
+    fun initDummy() {
+        binding.apply {
+            textFieldName.editText?.setText("Abang")
+            textFieldEmail.editText?.setText("abang@a.com")
+            textFieldPassword.editText?.setText("password")
+            textFieldAddress.editText?.setText("Abang jalan")
+            textFieldCity.editText?.setText("Abang kota")
+            textFieldHouseNo.editText?.setText("11")
+            textFieldPhone.editText?.setText("098765678")
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
@@ -31,6 +50,11 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
         presenter = RegisterPresenter(this)
 
         initViews()
+        initDummy()
+
+        binding.ivProfile.setOnClickListener {
+            ImagePicker.with(this).cameraOnly().start()
+        }
 
         binding.btnRegister.setOnClickListener {
 
@@ -86,7 +110,23 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
             )
 
             presenter.submitRegister(data, it)
+        }
+    }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK) {
+            filePath = data?.data
+
+            Glide.with(this)
+                .load(filePath)
+                .apply(RequestOptions.circleCropTransform())
+                .into(binding.ivProfile)
+        } else if (resultCode == ImagePicker.RESULT_ERROR) {
+            Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -110,12 +150,28 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
 
         PilatusShowroom.getApp().setUser(json)
 
+        Log.d("disdikbud", "onCreate: ${PilatusShowroom.getApp().getToken()}")
+        Log.d("disdikbud", "onCreate: $data")
+
+//        if (data.filePath == null) {
+//            val moveIntent = Intent(this, MainActivity::class.java)
+//            startActivity(moveIntent)
+//        } else {
+//            presenter.submitPhoto(data.filePath!!, view)
+//        }
+    }
+
+    override fun onRegisterFailed(message: String) {
+        Toast.makeText(this, "Register" + message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onRegisterPhotoSuccess(viewParms: View) {
         val moveIntent = Intent(this, MainActivity::class.java)
         startActivity(moveIntent)
     }
 
-    override fun onRegisterFailed(view: String) {
-        Log.d("JUNET", "onRegisterFailed: $view")
+    override fun onRegisterPhotoFailed(message: String) {
+        Toast.makeText(this, "register phoot: " + message, Toast.LENGTH_SHORT).show()
     }
 
     override fun showLoading() {

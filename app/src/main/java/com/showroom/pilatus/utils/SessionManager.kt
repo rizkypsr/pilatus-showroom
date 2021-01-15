@@ -9,13 +9,13 @@ class SessionManager(context: Context) {
     private val preferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
     companion object {
-        private const val PREFS_NAME = "user_pref"
+        private const val PREFS_NAME = "token_pref"
     }
 
     /**
      * Function to save auth token
      */
-    fun saveUser(token: String) {
+    fun saveToken(token: String) {
         val editor = preferences.edit()
         editor.putString(PREFS_NAME, token)
         editor.apply()

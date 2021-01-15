@@ -12,13 +12,15 @@ import com.showroom.pilatus.R
 import com.showroom.pilatus.databinding.ActivityLoginBinding
 import com.showroom.pilatus.model.response.login.LoginResponse
 import com.showroom.pilatus.ui.register.RegisterActivity
+import com.showroom.pilatus.utils.SessionManager
+import kotlin.math.log
 
 class LoginActivity : AppCompatActivity(), LoginContract.View {
 
     private lateinit var binding: ActivityLoginBinding
     private lateinit var presenter: LoginPresenter
-
-    var progressDialog: Dialog? = null
+    private lateinit var sessionManager: SessionManager
+    private var progressDialog: Dialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,12 +28,14 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         val view = binding.root
         setContentView(view)
 
-        presenter = LoginPresenter(this)
+        sessionManager = SessionManager(this)
 
-//        if (!PilatusShowroom.getApp().getToken().isNullOrEmpty()) {
-//            val moveIntent = Intent(this@LoginActivity, RegisterActivity::class.java)
-//            startActivity(moveIntent)
-//        }
+        if (!PilatusShowroom.getApp().getToken().isNullOrEmpty()) {
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        }
+
+        presenter = LoginPresenter(this)
 
         initViews()
 
@@ -71,16 +75,13 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
     }
 
     override fun onLoginSuccess(loginResponse: LoginResponse) {
-
         PilatusShowroom.getApp().setToken(loginResponse.accessToken)
 
-        val gson = Gson()
-        val json = gson.toJson(loginResponse.user)
+        val json = Gson().toJson(loginResponse.user)
 
         PilatusShowroom.getApp().setUser(json)
-
-        val moveIntent = Intent(this@LoginActivity, MainActivity::class.java)
-        startActivity(moveIntent)
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 
     override fun onLoginFailed(message: String) {

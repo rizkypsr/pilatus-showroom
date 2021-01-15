@@ -2,6 +2,7 @@ package com.showroom.pilatus.ui.profile
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,7 +41,6 @@ class ProfileFragment : Fragment(), LogoutContract.View {
 
         presenter = LogoutPresenter(this)
 
-        // Check if user already logged in
         if (!PilatusShowroom.getApp().getToken().isNullOrEmpty()) {
 
             val data = Gson().fromJson(PilatusShowroom.getApp().getUser(), User::class.java)
@@ -77,7 +77,8 @@ class ProfileFragment : Fragment(), LogoutContract.View {
 
     override fun onLogoutSuccess(data: Boolean) {
         PilatusShowroom.getApp().removeToken()
-        findNavController().navigate(R.id.action_navigationProfile_self)
+        startActivity(Intent(activity, LoginActivity::class.java))
+        activity?.finish()
     }
 
     override fun onLogoutFailed(message: String) {

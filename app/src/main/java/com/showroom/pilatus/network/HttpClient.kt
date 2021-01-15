@@ -1,5 +1,6 @@
 package com.showroom.pilatus.network
 
+import android.util.Log
 import androidx.viewbinding.BuildConfig
 import com.showroom.pilatus.PilatusShowroom
 import com.showroom.pilatus.utils.Helpers
@@ -37,50 +38,25 @@ class HttpClient {
         return endPoint
     }
 
-    private fun buildRetrofitClient() {
-        val token = PilatusShowroom.getApp().getToken()
-        buildRetrofitClient(token)
-    }
-
-    fun buildRetrofitClient(token: String?) {
+    fun buildRetrofitClient() {
         val builder = OkHttpClient.Builder()
         builder.connectTimeout(2, TimeUnit.MINUTES)
         builder.readTimeout(2, TimeUnit.MINUTES)
 
-        var interceptor = HttpLoggingInterceptor()
+        val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
         builder.addInterceptor(interceptor)
 
-        if (token != null) {
-            builder.addInterceptor(getInterceptorWithHeader("Authorization", "Bearer ${token}"))
-        }
+        builder.addInterceptor(AuthInterceptor())
 
         val okHttpClient = builder.build()
         client = Retrofit.Builder()
-            .baseUrl("http://192.168.1.73:8888/pilatus-server/public/api/")
+            .baseUrl("http://192.168.43.133:8888/pilatus-server/public/api/")
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create(Helpers.getDefaultGson()))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
 
         endPoint = null
-    }
-
-    private fun getInterceptorWithHeader(headerName: String, headerValue: String): Interceptor {
-        val header = HashMap<String, String>()
-        header.put(headerName, headerValue)
-        return getInterceptorWithHeader(header)
-    }
-
-    private fun getInterceptorWithHeader(headers: Map<String, String>): Interceptor {
-        return Interceptor {
-            val original = it.request()
-            val builder = original.newBuilder()
-            for ((key, value) in headers) {
-                builder.addHeader(key, value)
-            }
-            builder.method(original.method, original.body)
-            it.proceed(builder.build())
-        }
     }
 }

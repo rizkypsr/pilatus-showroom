@@ -41,6 +41,6 @@ class RegisterRequest(
     val phoneNumber: String,
 
     @Expose
-    @SerializedName("filePath")
+    @SerializedName("picturePath")
     val filePath: Uri? = null
 ) : Parcelable

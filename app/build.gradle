@@ -96,7 +96,7 @@ dependencies {
 
     implementation "androidx.preference:preference-ktx:1.1.1"
 
-    implementation 'com.github.dhaval2404:imagepicker:1.5'
+    implementation 'com.github.dhaval2404:imagepicker:1.8'
 
     implementation 'io.paperdb:paperdb:2.7.1'
 

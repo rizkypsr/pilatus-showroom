@@ -21,10 +21,10 @@ class LoginPresenter(private val view: LoginContract.View) : LoginContract.Prese
             .subscribe(
                 {
                     view.dismissLoading()
-                    if (it.meta?.status.equals("success", true)) {
+                    if (it.meta.status.equals("success", true)) {
                         it.data?.let { it1 -> view.onLoginSuccess(it1) }
                     } else {
-                        it.meta?.message?.let { it1 -> view.onLoginFailed(it1) }
+                        it.meta.message.let { it1 -> view.onLoginFailed(it1) }
                     }
                 },
                 {

@@ -17,7 +17,7 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:theme"
         tools:targetApi="m">
-        <activity android:name=".ui.cart.CartActivity"></activity>
+        <activity android:name=".ui.cart.CartActivity" />
         <activity android:name=".ui.ongkir.search.SearchCityActivity" />
         <activity android:name=".ui.ongkir.cost.OngkirActivity" />
         <activity android:name=".ui.orders.DetailOrderActivity" />
@@ -25,15 +25,17 @@
         <activity android:name=".ui.payment.PaymentSuccessActivity" />
         <activity android:name=".ui.product.ProductByCategoryActivity" />
         <activity android:name=".ui.register.RegisterActivity" />
-        <activity android:name=".ui.login.LoginActivity" />
-        <activity android:name=".ui.search.SearchActivity" />
-        <activity android:name=".ui.detail.DetailActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.login.LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".ui.search.SearchActivity" />
+        <activity android:name=".ui.detail.DetailActivity" />
+        <activity android:name=".MainActivity">
+
         </activity>
 
         <meta-data

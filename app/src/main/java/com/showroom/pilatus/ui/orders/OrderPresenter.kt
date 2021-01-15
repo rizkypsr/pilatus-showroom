@@ -24,7 +24,6 @@ class OrderPresenter(private val view: OrderContract.View) : OrderContract.Prese
             .subscribe(
                 {
                     view.dismissLoading()
-                    Log.d("tolong", "onViewCreated: $it")
                     if (it.meta.status.equals("success", true)) {
                         it.data.let { it1 -> view.onTransactionSuccess(it1!!) }
                     } else {

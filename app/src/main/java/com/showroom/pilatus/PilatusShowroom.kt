@@ -26,7 +26,6 @@ class PilatusShowroom : MultiDexApplication() {
 
     fun setToken(token: String) {
         getPreferences().edit().putString("PREFERENCES_TOKEN", token).apply()
-        HttpClient.getInstance().buildRetrofitClient(token)
     }
 
     fun getToken(): String? {
@@ -35,7 +34,6 @@ class PilatusShowroom : MultiDexApplication() {
 
     fun setUser(user: String) {
         getPreferences().edit().putString("PREFERENCES_USER", user).apply()
-        HttpClient.getInstance().buildRetrofitClient(user)
     }
 
     fun getUser(): String? {
