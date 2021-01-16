@@ -13,7 +13,6 @@ import io.reactivex.Observable
 import okhttp3.MultipartBody
 import retrofit2.http.*
 
-
 interface ApiService {
 
     @GET("city")
@@ -95,5 +94,9 @@ interface ApiService {
 
     @Multipart
     @POST("user/photo")
-    fun registerPhoto(@Part profileImage: MultipartBody.Part): Observable<Wrapper<Any>>
+    fun registerPhoto(@Part profileImage: MultipartBody.Part): Observable<Wrapper<List<String>>>
+
+    @Multipart
+    @POST("transaction/{id}")
+    fun uploadPayment(@Path("id") id: String, @Part paymentImage: MultipartBody.Part): Observable<Wrapper<List<String>>>
 }

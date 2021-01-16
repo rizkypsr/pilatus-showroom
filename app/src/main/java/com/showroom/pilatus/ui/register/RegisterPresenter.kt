@@ -8,7 +8,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import okhttp3.MediaType
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
@@ -52,12 +51,12 @@ class RegisterPresenter(private val view: RegisterContract.View) : RegisterContr
         mCompositeDisposable!!.add(disposable)
     }
 
-    override fun submitPhoto(filePath: Uri, viewParms: View) {
+    override fun submitPhotoRegister(filePath: Uri, viewParms: View) {
         view.showLoading()
 
-        val profileImageFile = File(filePath.path)
+        var profileImageFile = File(filePath.path)
         val profileImageRequestBody =
-            RequestBody.create("multipart/form-date".toMediaTypeOrNull(), profileImageFile)
+            RequestBody.create(MediaType.parse("multipart/form-data"), profileImageFile)
         val profileImageParms = MultipartBody.Part.createFormData(
             "file",
             profileImageFile.name,
@@ -70,12 +69,12 @@ class RegisterPresenter(private val view: RegisterContract.View) : RegisterContr
             .subscribe(
                 {
                     view.dismissLoading()
-                    if (it.meta.status.equals("success", true)) {
-                        it.data?.let { it1 -> view.onRegisterPhotoSuccess(viewParms) }
-                    } else {
-                        view.onRegisterFailed(it?.meta?.message.toString())
-                    }
 
+                    if (it.meta.status.equals("success", true)) {
+                        it.data?.let { it1 -> view.onRegisterPhotoSuccess(it1, viewParms) }
+                    } else {
+                        view.onRegisterFailed(it.meta.message)
+                    }
                 },
                 {
                     view.dismissLoading()

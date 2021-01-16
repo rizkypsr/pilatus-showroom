@@ -1,5 +1,6 @@
 package com.showroom.pilatus.ui.profile
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -27,6 +28,7 @@ class ProfileFragment : Fragment(), LogoutContract.View {
     private val binding get() = _binding!!
 
     private lateinit var presenter: LogoutPresenter
+    private var progressDialog: Dialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,21 +41,20 @@ class ProfileFragment : Fragment(), LogoutContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initViews()
+
         presenter = LogoutPresenter(this)
 
         if (!PilatusShowroom.getApp().getToken().isNullOrEmpty()) {
-
             val data = Gson().fromJson(PilatusShowroom.getApp().getUser(), User::class.java)
 
             binding.profileName.text = data.name
-            Glide.with(view)
-                .load(data.profilePhotoUrl)
+
+            Glide.with(requireContext())
+                .load(data.picturePath ?: data.profilePhotoUrl)
                 .apply(RequestOptions.circleCropTransform())
                 .into(binding.profilePicture)
 
-
-            binding.cardViewSettings.visibility = View.VISIBLE
-            binding.cardViewPrivacy.visibility = View.VISIBLE
         } else {
             binding.profileName.setOnClickListener {
                 val moveIntent = Intent(requireActivity(), LoginActivity::class.java)
@@ -75,6 +76,17 @@ class ProfileFragment : Fragment(), LogoutContract.View {
         _binding = null
     }
 
+    private fun initViews() {
+        progressDialog = Dialog(requireContext())
+        val dialogLayout = layoutInflater.inflate(R.layout.dialog_loader, null)
+
+        progressDialog?.let {
+            it.setContentView(dialogLayout)
+            it.setCancelable(false)
+            it.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        }
+    }
+
     override fun onLogoutSuccess(data: Boolean) {
         PilatusShowroom.getApp().removeToken()
         startActivity(Intent(activity, LoginActivity::class.java))
@@ -86,10 +98,10 @@ class ProfileFragment : Fragment(), LogoutContract.View {
     }
 
     override fun showLoading() {
-
+        progressDialog?.show()
     }
 
     override fun dismissLoading() {
-
+        progressDialog?.dismiss()
     }
 }

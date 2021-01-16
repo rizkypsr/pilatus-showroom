@@ -44,8 +44,8 @@ class ChangeProfileFragment : Fragment(), ProfileContract.View {
 
         val data = Gson().fromJson(PilatusShowroom.getApp().getUser(), User::class.java)
 
-        Glide.with(view)
-            .load(data.profilePhotoUrl)
+        Glide.with(requireContext())
+            .load(data.picturePath ?: data.profilePhotoUrl)
             .apply(RequestOptions.circleCropTransform())
             .into(binding.circleImageView)
 

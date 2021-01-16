@@ -41,7 +41,7 @@ data class User(
 
     @Expose
     @SerializedName("picturePath")
-    val picturePath: String,
+    var picturePath: String?,
 
     @Expose
     @SerializedName("profile_photo_url")

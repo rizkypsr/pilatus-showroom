@@ -17,13 +17,15 @@
 
     <TextView
         android:id="@+id/tv_product"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
         android:fontFamily="@font/poppins"
         android:text="Title Product"
         android:textColor="@color/primaryTextColor"
         android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_product"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -40,13 +42,13 @@
         android:id="@+id/tv_order_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/poppins"
         android:text=" Jun 12, 14:00"
         android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_product" />
 
     <TextView
         android:id="@+id/tv_status_order"
@@ -55,9 +57,8 @@
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/poppins"
         android:text="Cancelled"
-        android:textColor="#d9435e"
+        android:textColor="@android:color/holo_blue_light"
         android:textSize="12sp"
-        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_order_date" />
 

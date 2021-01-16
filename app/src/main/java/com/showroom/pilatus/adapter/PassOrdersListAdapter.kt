@@ -1,5 +1,6 @@
 package com.showroom.pilatus.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,8 +49,12 @@ class PassOrdersListAdapter(
                 tvPrice.text =
                     Helpers.getCurrencyIDR(transactionResponseItem.product.price.toDouble())
 
+                tvStatusOrder.text = transactionResponseItem.status
+
                 if (transactionResponseItem.status == "CANCELLED") {
-                    tvStatusOrder.visibility = View.VISIBLE
+                    tvStatusOrder.setTextColor(Color.RED)
+                } else if (transactionResponseItem.status == "DELIVERED") {
+                    tvStatusOrder.setTextColor(Color.GREEN)
                 }
 
                 itemView.setOnClickListener {

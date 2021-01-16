@@ -1,16 +1,12 @@
 package com.showroom.pilatus.network
 
-import android.util.Log
-import androidx.viewbinding.BuildConfig
-import com.showroom.pilatus.PilatusShowroom
+import com.showroom.pilatus.utils.Constants
 import com.showroom.pilatus.utils.Helpers
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 import java.util.concurrent.TimeUnit
 
 class HttpClient {
@@ -38,7 +34,7 @@ class HttpClient {
         return endPoint
     }
 
-    fun buildRetrofitClient() {
+    private fun buildRetrofitClient() {
         val builder = OkHttpClient.Builder()
         builder.connectTimeout(2, TimeUnit.MINUTES)
         builder.readTimeout(2, TimeUnit.MINUTES)
@@ -51,7 +47,7 @@ class HttpClient {
 
         val okHttpClient = builder.build()
         client = Retrofit.Builder()
-            .baseUrl("http://192.168.43.133:8888/pilatus-server/public/api/")
+            .baseUrl(Constants.BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create(Helpers.getDefaultGson()))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

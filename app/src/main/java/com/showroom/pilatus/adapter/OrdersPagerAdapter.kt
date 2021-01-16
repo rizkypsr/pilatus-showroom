@@ -1,31 +1,22 @@
 package com.showroom.pilatus.adapter
 
-import android.content.Context
 import android.os.Bundle
-import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
-import com.showroom.pilatus.R
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.showroom.pilatus.model.response.transaction.TransactionData
-import com.showroom.pilatus.ui.orders.*
+import com.showroom.pilatus.ui.orders.PassOrdersFragment
+import com.showroom.pilatus.ui.orders.PendingOrdersFragment
 
-class OrdersPagerAdapter(
-    private val context: Context, fm: FragmentManager
-) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+class OrdersPagerAdapter(fragmentActivity: FragmentActivity) :
+    FragmentStateAdapter(fragmentActivity) {
 
     private var inProgressList: ArrayList<TransactionData>? = ArrayList()
     private var passOrderList: ArrayList<TransactionData>? = ArrayList()
 
-    @StringRes
-    private val TAB_TITLES = intArrayOf(
-        R.string.tab_text_1,
-        R.string.tab_text_2,
-    )
+    override fun getItemCount() = 2
 
-    override fun getCount(): Int = 2
-
-    override fun getItem(position: Int): Fragment {
+    override fun createFragment(position: Int): Fragment {
         var fragment: Fragment? = null
         when (position) {
             0 -> {
@@ -41,11 +32,8 @@ class OrdersPagerAdapter(
                 fragment.arguments = bundle
             }
         }
-        return fragment as Fragment
-    }
 
-    override fun getPageTitle(position: Int): CharSequence {
-        return context.resources.getString(TAB_TITLES[position])
+        return fragment as Fragment
     }
 
     fun setData(

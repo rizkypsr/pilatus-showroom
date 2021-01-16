@@ -19,6 +19,8 @@ import com.showroom.pilatus.R
 import com.showroom.pilatus.databinding.ActivityRegisterBinding
 import com.showroom.pilatus.model.request.RegisterRequest
 import com.showroom.pilatus.model.response.login.LoginResponse
+import com.showroom.pilatus.model.response.login.User
+import com.showroom.pilatus.utils.Constants
 
 class RegisterActivity : AppCompatActivity(), RegisterContract.View {
 
@@ -26,6 +28,8 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
     private lateinit var presenter: RegisterPresenter
     private var progressDialog: Dialog? = null
     private lateinit var data: RegisterRequest
+
+    private lateinit var user: User
 
     var filePath: Uri? = null
 
@@ -145,33 +149,33 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
 
         PilatusShowroom.getApp().setToken(loginResponse.accessToken)
 
-        val gson = Gson()
-        val json = gson.toJson(loginResponse.user)
+        user = loginResponse.user
 
-        PilatusShowroom.getApp().setUser(json)
+        PilatusShowroom.getApp().setUser(Gson().toJson(user))
 
-        Log.d("disdikbud", "onCreate: ${PilatusShowroom.getApp().getToken()}")
-        Log.d("disdikbud", "onCreate: $data")
-
-//        if (data.filePath == null) {
-//            val moveIntent = Intent(this, MainActivity::class.java)
-//            startActivity(moveIntent)
-//        } else {
-//            presenter.submitPhoto(data.filePath!!, view)
-//        }
+        if (filePath != null) {
+            presenter.submitPhotoRegister(filePath!!, view)
+        }
     }
 
     override fun onRegisterFailed(message: String) {
-        Toast.makeText(this, "Register" + message, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Register " + message, Toast.LENGTH_SHORT).show()
     }
 
-    override fun onRegisterPhotoSuccess(viewParms: View) {
+    override fun onRegisterPhotoSuccess(photo: List<String>, viewParms: View) {
+
+        user.picturePath = Constants.BASE_URL_PHOTO + photo[0]
+
+        PilatusShowroom.getApp().setUser(Gson().toJson(user))
+
+        Log.d("check", "onRegisterPhotoSuccess: $user")
+
         val moveIntent = Intent(this, MainActivity::class.java)
         startActivity(moveIntent)
     }
 
     override fun onRegisterPhotoFailed(message: String) {
-        Toast.makeText(this, "register phoot: " + message, Toast.LENGTH_SHORT).show()
+        Log.d("check", "onRegisterPhotoFailed: $message")
     }
 
     override fun showLoading() {

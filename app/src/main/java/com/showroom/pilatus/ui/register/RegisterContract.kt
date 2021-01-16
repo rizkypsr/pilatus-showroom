@@ -11,13 +11,13 @@ interface RegisterContract {
     interface View : BaseView {
         fun onRegisterSuccess(loginResponse: LoginResponse, view: android.view.View)
         fun onRegisterFailed(message: String)
-        fun onRegisterPhotoSuccess(viewParms: android.view.View)
+        fun onRegisterPhotoSuccess(photo: List<String>, viewParms: android.view.View)
         fun onRegisterPhotoFailed(message: String)
     }
 
     interface Presenter : RegisterContract, BasePresenter {
         fun submitRegister(registerRequest: RegisterRequest, viewParms: android.view.View)
-        fun submitPhoto(filePath: Uri, viewParms: android.view.View)
+        fun submitPhotoRegister(filePath: Uri, viewParms: android.view.View)
     }
 
 }

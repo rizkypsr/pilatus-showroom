@@ -1,6 +1,5 @@
 package com.showroom.pilatus.network
 
-import androidx.viewbinding.BuildConfig
 import com.showroom.pilatus.utils.Helpers
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -78,7 +77,7 @@ class HttpClientOngkir {
             for ((key, value) in headers) {
                 builder.addHeader(key, value)
             }
-            builder.method(original.method, original.body)
+            builder.method(original.method(), original.body())
             it.proceed(builder.build())
         }
     }

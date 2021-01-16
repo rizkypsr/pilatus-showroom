@@ -2,13 +2,13 @@ package com.showroom.pilatus.ui.orders
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.showroom.pilatus.PilatusShowroom
+import androidx.fragment.app.Fragment
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.showroom.pilatus.R
 import com.showroom.pilatus.adapter.OrdersPagerAdapter
 import com.showroom.pilatus.databinding.FragmentOrdersBinding
@@ -21,6 +21,7 @@ class OrdersFragment : Fragment(), OrderContract.View {
 
     private lateinit var presenter: OrderPresenter
 
+    private var ordersPagerAdapter: OrdersPagerAdapter? = null
     private var progressDialog: Dialog? = null
     private var pendingOrders: ArrayList<TransactionData>? = ArrayList()
     private var passOrders: ArrayList<TransactionData>? = ArrayList()
@@ -50,7 +51,9 @@ class OrdersFragment : Fragment(), OrderContract.View {
     }
 
     private fun initView() {
+
         progressDialog = Dialog(requireContext())
+
         val dialogLayout = layoutInflater.inflate(R.layout.dialog_loader, null)
 
         progressDialog?.let {
@@ -62,27 +65,30 @@ class OrdersFragment : Fragment(), OrderContract.View {
 
     override fun onTransactionSuccess(data: List<TransactionData>) {
         for (a in data.indices) {
-            if (data[a].status.equals("ON_DELIVERY", true)
-                || data[a].status.equals("PENDING", true)
-            ) {
+            if (data[a].status.equals("PENDING", true)) {
                 pendingOrders?.add(data[a])
-            } else if (data[a].status.equals("DELIVERY", true)
+            } else if (data[a].status.equals("ON_DELIVERY", true)
                 || data[a].status.equals("CANCELLED", true)
-                || data[a].status.equals("SUCCESS", true)
+                || data[a].status.equals("DELIVERED", true)
             ) {
                 passOrders?.add(data[a])
             }
         }
 
-        val ordersPagerAdapter =
-            OrdersPagerAdapter(requireActivity(), requireActivity().supportFragmentManager)
+        ordersPagerAdapter = OrdersPagerAdapter(requireActivity())
+        ordersPagerAdapter?.setData(pendingOrders, passOrders)
 
-        ordersPagerAdapter.setData(pendingOrders, passOrders)
+        val titles = arrayOf("Pending Orders", "Pass Orders")
 
         val viewPager = binding.viewPager
-
         viewPager.adapter = ordersPagerAdapter
-        binding.tabs.setupWithViewPager(viewPager)
+
+        TabLayoutMediator(
+            binding.tabs, binding.viewPager
+        ) { tab: TabLayout.Tab, position: Int ->
+            tab.text = titles[position]
+        }.attach()
+
     }
 
     override fun onTransactionFailed(message: String) {

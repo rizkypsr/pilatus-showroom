@@ -1,8 +1,10 @@
 package com.showroom.pilatus.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.showroom.pilatus.databinding.ItemListAllCategoryBinding
 import com.showroom.pilatus.model.response.home.CategoryResponse
 
@@ -32,9 +34,12 @@ class CategoryListAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(category: CategoryResponse) {
             with(binding) {
-//                Glide.with(itemView.context)
-//                    .load(category.icon)
-//                    .into(ivCategoryPhoto)
+
+                Log.d("check", "bind: ${category.picturePath}")
+
+                Glide.with(itemView.context)
+                    .load(category.picturePath)
+                    .into(ivCategoryPhoto)
 
                 textCategoryTitle.text = category.name
 

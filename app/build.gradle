@@ -65,6 +65,8 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
+
     // Circle ImageView
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
@@ -82,13 +84,14 @@ dependencies {
     // Number Picker
     implementation 'com.cepheuen.elegant-number-button:lib:1.0.2'
 
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.2'
-    implementation "com.squareup.okhttp3:logging-interceptor:4.9.0"
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.6.2"
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
     implementation 'io.reactivex.rxjava2:rxkotlin:2.2.0'
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
-    implementation 'com.jakewharton.rxbinding3:rxbinding:3.0.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+
+    //implementation 'com.jakewharton.rxbinding3:rxbinding:3.0.0'
 
     implementation 'com.airbnb.android:lottie:3.4.4'
 
@@ -96,7 +99,7 @@ dependencies {
 
     implementation "androidx.preference:preference-ktx:1.1.1"
 
-    implementation 'com.github.dhaval2404:imagepicker:1.8'
+    implementation 'com.github.dhaval2404:imagepicker:1.5'
 
     implementation 'io.paperdb:paperdb:2.7.1'
 
